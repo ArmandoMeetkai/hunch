@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Hunch — Wireframes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --bg-canvas: #F5F1EA;
+    --bg-surface: #FFFFFF;
+    --bg-sunken: #EDE7DD;
+    --ink-primary: #1C1A17;
+    --ink-secondary: #5C544A;
+    --ink-tertiary: #9A9288;
+    --accent-ink: #2B1F14;
+    --accent-signal: #B8471C;
+    --accent-cool: #3D5A5C;
+    --accent-highlight: #E8D9B8;
+    --border-soft: #E0D8CB;
+    --border-firm: #C9BEAD;
+
+    --serif: 'Instrument Serif', Georgia, serif;
+    --sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --mono: 'JetBrains Mono', 'SF Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    background: var(--bg-sunken);
+    color: var(--ink-primary);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* ===== Wireframe shell ===== */
+  .shell {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 32px 24px 80px;
+  }
+  .shell-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    gap: 16px;
+  }
+  .shell-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-style: italic;
+    letter-spacing: -0.01em;
+  }
+  .shell-sub {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-tertiary);
+  }
+  .tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 32px;
+    padding: 6px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    width: fit-content;
+  }
+  .tab {
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-secondary);
+    background: transparent;
+    border: none;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    font-family: var(--sans);
+  }
+  .tab:hover { color: var(--ink-primary); }
+  .tab.active {
+    background: var(--accent-ink);
+    color: var(--bg-canvas);
+  }
+
+  /* ===== Device frame ===== */
+  .frame {
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-soft);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px -20px rgba(28, 26, 23, 0.12);
+    min-height: 780px;
+    display: none;
+    animation: fadeSlide 320ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .frame.active { display: block; }
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .frame-inner {
+    padding: 40px 56px 56px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* ===== App header inside frame ===== */
+  .app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 40px;
+  }
+  .logo {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 26px;
+    letter-spacing: -0.01em;
+  }
+  .app-header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-tertiary);
+  }
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-highlight);
+    display: grid;
+    place-items: center;
+    font-family: var(--serif);
+    font-size: 16px;
+    color: var(--accent-ink);
+  }
+
+  /* ===== Typography ===== */
+  .hero-display {
+    font-family: var(--serif);
+    font-size: 72px;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .hero-display em { font-style: italic; }
+  .h1 {
+    font-family: var(--serif);
+    font-size: 48px;
+    line-height: 1.05;
+    letter-spacing: -0.015em;
+  }
+  .h2 {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+  }
+  .h3 {
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 1.3;
+  }
+  .body-lg { font-size: 18px; line-height: 1.55; color: var(--ink-secondary); }
+  .body { font-size: 16px; line-height: 1.6; color: var(--ink-secondary); }
+  .caption { font-size: 13px; color: var(--ink-tertiary); }
+  .overline {
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-tertiary);
+  }
+  .num {
+    font-family: var(--mono);
+    font-weight: 300;
+    letter-spacing: -0.02em;
+  }
+
+  /* ===== Buttons ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 22px;
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 180ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .btn-primary {
+    background: var(--accent-ink);
+    color: var(--bg-canvas);
+  }
+  .btn-primary:hover { transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink-primary);
+    border-color: var(--border-firm);
+  }
+  .btn-ghost:hover { background: var(--bg-surface); }
+
+  /* ===== Story card ===== */
+  .story {
+    padding: 32px 0;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .story:last-child { border-bottom: none; }
+  .story-overline {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+  .story-title {
+    font-family: var(--serif);
+    font-size: 32px;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+    cursor: pointer;
+  }
+  .story-title em { font-style: italic; }
+  .story-summary {
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--ink-secondary);
+    margin-bottom: 20px;
+    max-width: 600px;
+  }
+  .market-strip {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    transition: all 180ms;
+  }
+  .market-strip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -8px rgba(28, 26, 23, 0.08);
+  }
+  .market-q {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink-primary);
+  }
+  .market-prob {
+    font-family: var(--mono);
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--accent-signal);
+    min-width: 72px;
+    text-align: right;
+  }
+  .sparkline {
+    width: 80px;
+    height: 24px;
+  }
+  .market-cta {
+    padding: 8px 14px;
+    font-size: 13px;
+    font-weight: 500;
+    background: var(--bg-canvas);
+    border: 1px solid var(--border-firm);
+    border-radius: 999px;
+    cursor: pointer;
+    color: var(--ink-primary);
+  }
+
+  /* ===== Onboarding ===== */
+  .onboarding {
+    display: grid;
+    place-items: center;
+    min-height: 680px;
+    text-align: center;
+    padding: 40px;
+  }
+  .onboarding-steps {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 48px;
+  }
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--border-firm);
+  }
+  .dot.active { background: var(--accent-ink); width: 24px; border-radius: 999px; }
+  .onboarding-sub {
+    font-size: 18px;
+    color: var(--ink-secondary);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.5;
+  }
+  .topics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 480px;
+    margin: 0 auto 48px;
+  }
+  .topic-pill {
+    padding: 14px 20px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 180ms;
+    font-family: var(--serif);
+    font-size: 18px;
+    font-style: italic;
+  }
+  .topic-pill:hover { border-color: var(--border-firm); }
+  .topic-pill.selected {
+    background: var(--accent-highlight);
+    border-color: var(--accent-ink);
+    color: var(--accent-ink);
+  }
+
+  /* ===== Story detail ===== */
+  .article-hero {
+    margin-bottom: 48px;
+  }
+  .article-hero .overline { margin-bottom: 20px; }
+  .article-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 56px;
+    align-items: start;
+  }
+  .article-body p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: var(--ink-primary);
+    margin-bottom: 20px;
+  }
+  .article-body p:first-letter {
+    font-family: var(--serif);
+    font-size: 56px;
+    line-height: 1;
+    float: left;
+    margin: 6px 8px 0 0;
+    color: var(--accent-ink);
+  }
+  .market-module {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 28px;
+    position: sticky;
+    top: 24px;
+  }
+  .market-module .overline { margin-bottom: 16px; }
+  .market-module-q {
+    font-family: var(--serif);
+    font-size: 22px;
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+  .big-prob {
+    font-family: var(--mono);
+    font-size: 64px;
+    font-weight: 300;
+    letter-spacing: -0.03em;
+    color: var(--accent-signal);
+    margin-bottom: 4px;
+    line-height: 1;
+  }
+  .big-prob-sub {
+    font-size: 13px;
+    color: var(--ink-tertiary);
+    margin-bottom: 20px;
+  }
+  .yn-toggle {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    padding: 4px;
+    background: var(--bg-sunken);
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .yn-opt {
+    padding: 10px;
+    text-align: center;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    color: var(--ink-secondary);
+  }
+  .yn-opt.active {
+    background: var(--bg-canvas);
+    color: var(--ink-primary);
+    box-shadow: 0 2px 8px -2px rgba(28,26,23,0.1);
+  }
+  .amount-stepper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    margin-bottom: 20px;
+  }
+  .amount-opt {
+    padding: 10px;
+    text-align: center;
+    font-family: var(--mono);
+    font-size: 14px;
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    cursor: pointer;
+    color: var(--ink-secondary);
+  }
+  .amount-opt.active {
+    border-color: var(--accent-ink);
+    color: var(--accent-ink);
+    background: var(--accent-highlight);
+  }
+  .cta-full {
+    width: 100%;
+    padding: 14px;
+    background: var(--accent-ink);
+    color: var(--bg-canvas);
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--sans);
+  }
+  .conviction-note {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--ink-tertiary);
+    text-align: center;
+    font-style: italic;
+    font-family: var(--serif);
+    font-size: 15px;
+  }
+
+  /* ===== Portfolio bento ===== */
+  .portfolio-head {
+    margin-bottom: 40px;
+  }
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 140px;
+    gap: 16px;
+  }
+  .tile {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 180ms;
+    cursor: pointer;
+  }
+  .tile:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -8px rgba(28, 26, 23, 0.08);
+  }
+  .tile.big {
+    grid-column: span 2;
+    grid-row: span 2;
+    padding: 32px;
+  }
+  .tile.wide { grid-column: span 2; }
+  .tile.tall { grid-row: span 2; }
+  .tile-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-tertiary);
+  }
+  .tile-big-num {
+    font-family: var(--mono);
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .tile-small-num {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 300;
+  }
+  .tile-q {
+    font-family: var(--serif);
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .tile-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .side-badge {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 3px 8px;
+    background: var(--bg-sunken);
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .side-badge.yes { color: var(--accent-signal); }
+  .side-badge.no { color: var(--accent-cool); }
+
+  .radial-chart {
+    display: grid;
+    place-items: center;
+    height: 100%;
+  }
+
+  /* ===== Track record ===== */
+  .track-hero {
+    text-align: center;
+    padding: 60px 0 40px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 40px;
+  }
+  .track-big {
+    font-family: var(--serif);
+    font-size: 72px;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .track-big .num {
+    color: var(--accent-signal);
+    font-style: normal;
+  }
+  .track-caption {
+    margin-top: 16px;
+    font-size: 15px;
+    color: var(--ink-tertiary);
+  }
+  .timeline-month {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 20px;
+    color: var(--ink-tertiary);
+    margin: 40px 0 20px;
+  }
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 24px 1fr auto;
+    gap: 20px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border-soft);
+    align-items: center;
+  }
+  .timeline-mark {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    font-family: var(--mono);
+    font-size: 12px;
+  }
+  .timeline-mark.right {
+    background: var(--accent-highlight);
+    color: var(--accent-signal);
+  }
+  .timeline-mark.wrong {
+    background: var(--bg-sunken);
+    color: var(--ink-tertiary);
+  }
+  .timeline-q {
+    font-size: 15px;
+  }
+  .timeline-q-sub {
+    font-size: 13px;
+    color: var(--ink-tertiary);
+    margin-top: 2px;
+  }
+  .timeline-result {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-secondary);
+  }
+
+  /* ===== Learn ===== */
+  .learn-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .lesson {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 180ms;
+  }
+  .lesson:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px -8px rgba(28, 26, 23, 0.08);
+  }
+  .lesson.locked { opacity: 0.55; }
+  .roman {
+    position: absolute;
+    top: 16px;
+    right: 24px;
+    font-family: var(--serif);
+    font-size: 72px;
+    color: var(--border-firm);
+    font-style: italic;
+    line-height: 1;
+  }
+  .lesson-title {
+    font-family: var(--serif);
+    font-size: 26px;
+    line-height: 1.15;
+    margin: 40px 0 8px;
+    padding-right: 48px;
+  }
+  .lesson-sub {
+    font-size: 14px;
+    color: var(--ink-secondary);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .lesson-status {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-tertiary);
+  }
+  .lesson-status.unlocked { color: var(--accent-signal); }
+
+  /* ===== Settings ===== */
+  .settings-section {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-soft);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    overflow: hidden;
+  }
+  .settings-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--border-soft);
+  }
+  .settings-row:last-child { border-bottom: none; }
+  .settings-row-label {
+    font-size: 15px;
+  }
+  .settings-row-sub {
+    font-size: 13px;
+    color: var(--ink-tertiary);
+    margin-top: 2px;
+  }
+  .settings-row-value {
+    font-size: 14px;
+    color: var(--ink-secondary);
+  }
+  .settings-cta-disabled {
+    padding: 10px 18px;
+    background: var(--bg-sunken);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--ink-tertiary);
+    cursor: not-allowed;
+  }
+
+  .page-title-row {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+  }
+
+  @media (max-width: 860px) {
+    .article-grid { grid-template-columns: 1fr; }
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .learn-grid { grid-template-columns: 1fr; }
+    .frame-inner { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <div class="shell-header">
+    <div>
+      <div class="shell-title">Hunch — Wireframes</div>
+      <div class="caption" style="margin-top:4px; color: var(--ink-tertiary);">Demo visual · paleta editorial · tipografía definitiva</div>
+    </div>
+    <div class="shell-sub">v0.1 · April 2026</div>
+  </div>
+
+  <div class="tabs" role="tablist">
+    <button class="tab active" data-target="onboarding">Onboarding</button>
+    <button class="tab" data-target="feed">Feed</button>
+    <button class="tab" data-target="story">Story</button>
+    <button class="tab" data-target="portfolio">Portfolio</button>
+    <button class="tab" data-target="track">Track record</button>
+    <button class="tab" data-target="learn">Learn</button>
+    <button class="tab" data-target="settings">Settings</button>
+  </div>
+
+  <!-- ===== ONBOARDING ===== -->
+  <div class="frame active" id="frame-onboarding">
+    <div class="frame-inner">
+      <div class="onboarding">
+        <div class="onboarding-steps">
+          <div class="dot active"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+        </div>
+        <h1 class="hero-display">Read the world.<br><em>Back your hunches.</em></h1>
+        <p class="onboarding-sub">A new way to track what you believe — and see how often you're right.</p>
+
+        <div class="topics-grid">
+          <div class="topic-pill selected">Politics</div>
+          <div class="topic-pill">Climate</div>
+          <div class="topic-pill selected">Culture</div>
+          <div class="topic-pill">Sports</div>
+          <div class="topic-pill selected">Tech</div>
+          <div class="topic-pill">Economy</div>
+          <div class="topic-pill">Science</div>
+          <div class="topic-pill">Entertainment</div>
+          <div class="topic-pill">World</div>
+        </div>
+
+        <button class="btn btn-primary">Continue →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FEED ===== -->
+  <div class="frame" id="frame-feed">
+    <div class="frame-inner">
+      <div class="app-header">
+        <div class="logo">Hunch</div>
+        <div class="app-header-right">
+          <span>Monday, April 13</span>
+          <div class="avatar">A</div>
+        </div>
+      </div>
+
+      <article class="story">
+        <div class="story-overline">
+          <span class="overline">Politics</span>
+          <span class="caption">· 3h ago</span>
+        </div>
+        <h2 class="story-title">The quiet campaign to redraw the <em>midwestern map</em> before November</h2>
+        <p class="story-summary">Three state legislatures are moving on redistricting proposals that could shift as many as nine House seats. The maps are technical — the political consequences aren't.</p>
+        <div class="market-strip">
+          <div class="market-q">Will at least one map pass before August?</div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <svg class="sparkline" viewBox="0 0 80 24"><polyline fill="none" stroke="#B8471C" stroke-width="1.5" points="0,18 10,15 20,17 30,12 40,14 50,8 60,10 70,6 80,4"/></svg>
+            <span class="market-prob">63%</span>
+            <button class="market-cta">Back this →</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="story">
+        <div class="story-overline">
+          <span class="overline">Culture</span>
+          <span class="caption">· 6h ago</span>
+        </div>
+        <h2 class="story-title">A novel about <em>grief and vending machines</em> is quietly topping every year-end list</h2>
+        <p class="story-summary">Kawamura's debut has sold out three printings. Critics are calling it the strangest Pulitzer contender in a decade.</p>
+        <div class="market-strip">
+          <div class="market-q">Will it win the National Book Award?</div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <svg class="sparkline" viewBox="0 0 80 24"><polyline fill="none" stroke="#3D5A5C" stroke-width="1.5" points="0,8 10,10 20,9 30,14 40,13 50,16 60,15 70,18 80,17"/></svg>
+            <span class="market-prob" style="color: var(--accent-cool)">29%</span>
+            <button class="market-cta">Back this →</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="story">
+        <div class="story-overline">
+          <span class="overline">Tech</span>
+          <span class="caption">· Yesterday</span>
+        </div>
+        <h2 class="story-title">The open-source model that's <em>beating GPT-6</em> on three benchmarks</h2>
+        <p class="story-summary">It was trained on a fraction of the compute. The team is six people in Warsaw. No one in the Bay Area wants to talk about it publicly.</p>
+        <div class="market-strip">
+          <div class="market-q">Will a major lab acqui-hire the team before Q3?</div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <svg class="sparkline" viewBox="0 0 80 24"><polyline fill="none" stroke="#B8471C" stroke-width="1.5" points="0,20 10,18 20,15 30,14 40,10 50,9 60,7 70,5 80,3"/></svg>
+            <span class="market-prob">78%</span>
+            <button class="market-cta">Back this →</button>
+          </div>
+        </div>
+      </article>
+
+      <article class="story">
+        <div class="story-overline">
+          <span class="overline">Climate</span>
+          <span class="caption">· Yesterday</span>
+        </div>
+        <h2 class="story-title">Why the <em>Atlantic hurricane forecast</em> keeps getting quieter</h2>
+        <p class="story-summary">NOAA's latest seasonal outlook revises storm counts down for the third year in a row. Meteorologists are divided on what this means.</p>
+        <div class="market-strip">
+          <div class="market-q">Will 2026 exceed 14 named storms?</div>
+          <div style="display:flex; align-items:center; gap:16px;">
+            <svg class="sparkline" viewBox="0 0 80 24"><polyline fill="none" stroke="#3D5A5C" stroke-width="1.5" points="0,12 10,11 20,14 30,13 40,15 50,14 60,17 70,16 80,18"/></svg>
+            <span class="market-prob" style="color: var(--accent-cool)">41%</span>
+            <button class="market-cta">Back this →</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- ===== STORY DETAIL ===== -->
+  <div class="frame" id="frame-story">
+    <div class="frame-inner">
+      <div class="app-header">
+        <div class="logo">Hunch</div>
+        <div class="app-header-right">
+          <span>← Back to feed</span>
+          <div class="avatar">A</div>
+        </div>
+      </div>
+
+      <div class="article-hero">
+        <div class="overline">Politics · April 13 · 6 min read</div>
+        <h1 class="h1" style="margin-top:20px;">The quiet campaign to redraw the <em style="font-style:italic;">midwestern map</em> before November</h1>
+        <p class="body-lg" style="margin-top:16px; font-family: var(--serif); font-style: italic; font-size: 22px; color: var(--ink-secondary);">Three state legislatures are moving on redistricting proposals that could shift as many as nine House seats.</p>
+      </div>
+
+      <div class="article-grid">
+        <div class="article-body">
+          <p>In a legislative session that most national outlets haven't covered, Ohio's state senate is moving on a redistricting proposal that — if enacted — would affect the partisan composition of as many as four congressional districts. Similar efforts are underway in two neighboring states.</p>
+          <p>The maps themselves are technical documents. The political mechanics behind them are not. Sources familiar with the draft legislation described the push as "unusually coordinated" for a non-census year.</p>
+          <p>Academic analysts are divided on whether the proposals would survive judicial review. One redistricting scholar at the University of Michigan called the timing "legally adventurous." Another described the maps as "within the lines, if barely."</p>
+          <p>The legislative calendar leaves a narrow window. Most states have procedural hurdles that push the earliest realistic enactment date into late July. Whether any of the three states hits that target depends on whose vote counts show up.</p>
+        </div>
+
+        <aside class="market-module">
+          <div class="overline">The Hunch</div>
+          <div class="market-module-q">Will at least one map pass before August?</div>
+          <div class="big-prob">63%</div>
+          <div class="big-prob-sub">↗ up 4.2% this week</div>
+
+          <svg viewBox="0 0 280 60" style="width:100%; height:60px; margin-bottom: 24px;">
+            <polyline fill="none" stroke="#B8471C" stroke-width="1.5" points="0,48 35,42 70,45 105,32 140,36 175,22 210,26 245,14 280,10"/>
+          </svg>
+
+          <div class="yn-toggle">
+            <div class="yn-opt active">Yes</div>
+            <div class="yn-opt">No</div>
+          </div>
+
+          <div class="overline" style="margin-bottom:8px;">Amount</div>
+          <div class="amount-stepper">
+            <div class="amount-opt">$0.50</div>
+            <div class="amount-opt active">$1</div>
+            <div class="amount-opt">$5</div>
+            <div class="amount-opt">$25</div>
+          </div>
+
+          <button class="cta-full">Back $1 on Yes</button>
+          <p class="conviction-note">You believe this more than 73% of readers.</p>
+        </aside>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PORTFOLIO ===== -->
+  <div class="frame" id="frame-portfolio">
+    <div class="frame-inner">
+      <div class="app-header">
+        <div class="logo">Hunch</div>
+        <div class="app-header-right">
+          <span>Monday, April 13</span>
+          <div class="avatar">A</div>
+        </div>
+      </div>
+
+      <div class="portfolio-head">
+        <div class="overline">Your portfolio</div>
+        <h1 class="h1" style="margin-top:12px;">Your beliefs, <em style="font-style:italic;">in one place.</em></h1>
+      </div>
+
+      <div class="bento">
+        <div class="tile big">
+          <div class="tile-label">Total value</div>
+          <div>
+            <div class="tile-big-num">$13.42</div>
+            <div class="caption" style="margin-top:8px; color: var(--accent-signal);">↗ +$3.42 from practice</div>
+          </div>
+          <div class="tile-label">14 active positions · 62% right</div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Politics</div>
+          <div class="tile-q">Midwestern map passes before Aug</div>
+          <div class="tile-meta">
+            <span class="side-badge yes">Yes · $1</span>
+            <span class="num" style="font-size: 14px; color: var(--accent-signal);">+$0.18</span>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Tech</div>
+          <div class="tile-q">Warsaw team acqui-hired</div>
+          <div class="tile-meta">
+            <span class="side-badge yes">Yes · $5</span>
+            <span class="num" style="font-size: 14px; color: var(--accent-signal);">+$2.12</span>
+          </div>
+        </div>
+
+        <div class="tile wide">
+          <div class="tile-label">Conviction compass</div>
+          <div class="radial-chart">
+            <svg viewBox="0 0 200 100" style="width:100%; max-width:260px;">
+              <circle cx="100" cy="100" r="90" fill="none" stroke="#E0D8CB" stroke-width="1"/>
+              <circle cx="100" cy="100" r="60" fill="none" stroke="#E0D8CB" stroke-width="1"/>
+              <circle cx="100" cy="100" r="30" fill="none" stroke="#E0D8CB" stroke-width="1"/>
+              <path d="M 100,100 L 180,60 A 90,90 0 0,0 150,25 Z" fill="#B8471C" opacity="0.7"/>
+              <path d="M 100,100 L 150,25 A 90,90 0 0,0 80,12 Z" fill="#2B1F14" opacity="0.7"/>
+              <path d="M 100,100 L 80,12 A 90,90 0 0,0 30,50 Z" fill="#3D5A5C" opacity="0.7"/>
+              <path d="M 100,100 L 30,50 A 90,90 0 0,0 25,95 Z" fill="#E8D9B8"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Culture</div>
+          <div class="tile-q">Kawamura wins NBA</div>
+          <div class="tile-meta">
+            <span class="side-badge no">No · $1</span>
+            <span class="num" style="font-size: 14px; color: var(--ink-tertiary);">+$0.04</span>
+          </div>
+        </div>
+
+        <div class="tile">
+          <div class="tile-label">Climate</div>
+          <div class="tile-q">2026 exceeds 14 storms</div>
+          <div class="tile-meta">
+            <span class="side-badge no">No · $1</span>
+            <span class="num" style="font-size: 14px; color: var(--accent-cool);">−$0.09</span>
+          </div>
+        </div>
+
+        <div class="tile wide">
+          <div class="tile-label">This week's conviction</div>
+          <div style="display:flex; align-items:baseline; gap:12px; margin-top: 8px;">
+            <span class="num" style="font-size: 40px;">4</span>
+            <span style="font-family: var(--serif); font-size: 22px; font-style: italic;">new hunches backed</span>
+          </div>
+          <div class="tile-label">Avg confidence: 67%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== TRACK RECORD ===== -->
+  <div class="frame" id="frame-track">
+    <div class="frame-inner">
+      <div class="app-header">
+        <div class="logo">Hunch</div>
+        <div class="app-header-right">
+          <span>Track record</span>
+          <div class="avatar">A</div>
+        </div>
+      </div>
+
+      <div class="track-hero">
+        <div class="overline">Since you started</div>
+        <div class="track-big" style="margin-top:16px;">You've been right<br><span class="num">62%</span> of the time.</div>
+        <p class="track-caption">Better than most readers on <em>Tech</em> and <em>Politics</em>. Worse on <em>Climate</em>.</p>
+      </div>
+
+      <div class="timeline-month">April 2026</div>
+
+      <div class="timeline-entry">
+        <div class="timeline-mark right">✓</div>
+        <div>
+          <div class="timeline-q">Warsaw team acqui-hired before Q3</div>
+          <div class="timeline-q-sub">Backed Yes · $5 · resolved Apr 10</div>
+        </div>
+        <div class="timeline-result">+$2.12</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-mark wrong">✗</div>
+        <div>
+          <div class="timeline-q">Fed cuts rates by April 15</div>
+          <div class="timeline-q-sub">Backed Yes · $1 · resolved Apr 8</div>
+        </div>
+        <div class="timeline-result" style="color: var(--ink-tertiary);">−$1.00</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-mark right">✓</div>
+        <div>
+          <div class="timeline-q">Oscars Best Picture: <em>The Long Hallway</em></div>
+          <div class="timeline-q-sub">Backed Yes · $1 · resolved Apr 2</div>
+        </div>
+        <div class="timeline-result">+$0.43</div>
+      </div>
+
+      <div class="timeline-month">March 2026</div>
+
+      <div class="timeline-entry">
+        <div class="timeline-mark right">✓</div>
+        <div>
+          <div class="timeline-q">UK inflation below 3% in Q1</div>
+          <div class="timeline-q-sub">Backed Yes · $1 · resolved Mar 28</div>
+        </div>
+        <div class="timeline-result">+$0.67</div>
+      </div>
+
+      <div class="timeline-entry">
+        <div class="timeline-mark wrong">✗</div>
+        <div>
+          <div class="timeline-q">Apple announces AR glasses at WWDC</div>
+          <div class="timeline-q-sub">Backed Yes · $5 · resolved Mar 20</div>
+        </div>
+        <div class="timeline-result" style="color: var(--ink-tertiary);">−$5.00</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LEARN ===== -->
+  <div class="frame" id="frame-learn">
+    <div class="frame-inner">
+      <div class="app-header">
+        <div class="logo">Hunch</div>
+        <div class="app-header-right">
+          <span>Library</span>
+          <div class="avatar">A</div>
+        </div>
+      </div>
+
+      <div class="page-title-row">
+        <div>
+          <div class="overline">30-second lessons</div>
+          <h1 class="h1" style="margin-top:12px;">A quieter way to <em style="font-style:italic;">learn how this works.</em></h1>
+        </div>
+      </div>
+
+      <div class="learn-grid">
+        <div class="lesson">
+          <div class="roman">I</div>
+          <div class="lesson-title">What's a prediction market, really?</div>
+          <div class="lesson-sub">Not a bet. A way of turning your opinion into something you can measure.</div>
+          <div class="lesson-status unlocked">✓ Unlocked</div>
+        </div>
+
+        <div class="lesson">
+          <div class="roman">II</div>
+          <div class="lesson-title">Where does your money go?</div>
+          <div class="lesson-sub">A short tour of what happens between "back this" and "cash out."</div>
+          <div class="lesson-status unlocked">✓ Unlocked</div>
+        </div>
+
+        <div class="lesson">
+          <div class="roman">III</div>
+          <div class="lesson-title">What's a stablecoin?</div>
+          <div class="lesson-sub">The quiet thing your balance is already made of.</div>
+          <div class="lesson-status unlocked">✓ Unlocked</div>
+        </div>
+
+        <div class="lesson locked">
+          <div class="roman">IV</div>
+          <div class="lesson-title">Who decides if you were right?</div>
+          <div class="lesson-sub">Oracles, resolvers, and the surprisingly human part of all this.</div>
+          <div class="lesson-status">Locked · 2 more predictions</div>
+        </div>
+
+        <div class="lesson locked">
+          <div class="roman">V</div>
+          <div class="lesson-title">What's a wallet, and why don't you see yours?</div>
+          <div class="lesson-sub">It's been there since day one. Here's why we kept it hidden.</div>
+          <div class="lesson-status">Locked · 4 more predictions</div>
+        </div>
+
+        <div class="lesson locked">
+          <div class="roman">VI</div>
+          <div class="lesson-title">The blockchain, in under a minute.</div>
+          <div class="lesson-sub">No mysticism. No Bitcoin sermon. Just how the plumbing works.</div>
+          <div class="lesson-status">Locked · 5 more predictions</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS ===== -->
+  <div class="frame" id="frame-settings">
+    <div class="frame-inner">
+      <div class="app-header">
+        <div class="logo">Hunch</div>
+        <div class="app-header-right">
+          <span>Settings</span>
+          <div class="avatar">A</div>
+        </div>
+      </div>
+
+      <h1 class="h1" style="margin-bottom:40px;">Settings</h1>
+
+      <div class="settings-section">
+        <div class="settings-row">
+          <div>
+            <div class="settings-row-label">Account</div>
+            <div class="settings-row-sub">armando@meetkai.com</div>
+          </div>
+          <div class="settings-row-value">Manage →</div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-row">
+          <div class="settings-row-label">Appearance</div>
+          <div class="settings-row-value">Light</div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-label">Notifications</div>
+          <div class="settings-row-value">Morning briefing · On</div>
+        </div>
+        <div class="settings-row">
+          <div class="settings-row-label">Language</div>
+          <div class="settings-row-value">English</div>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <div class="settings-row">
+          <div>
+            <div class="settings-row-label">Graduate to self-custody</div>
+            <div class="settings-row-sub">Move your balance to a wallet you control. We'll walk you through it.</div>
+          </div>
+          <button class="settings-cta-disabled">7 predictions to go</button>
+        </div>
+      </div>
+
+      <p class="caption" style="text-align:center; margin-top:40px; font-style: italic; font-family: var(--serif); font-size: 17px;">Hunch · Read the world. Back your hunches.</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const tabs = document.querySelectorAll('.tab');
+  const frames = document.querySelectorAll('.frame');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const target = tab.dataset.target;
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      frames.forEach(f => f.classList.remove('active'));
+      document.getElementById('frame-' + target).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+
+  // Tiny live animation: move probability numbers slightly
+  const probs = document.querySelectorAll('.market-prob, .big-prob');
+  setInterval(() => {
+    probs.forEach(el => {
+      const current = parseInt(el.textContent);
+      if (isNaN(current)) return;
+      const delta = Math.random() > 0.5 ? 1 : -1;
+      const next = Math.max(5, Math.min(95, current + delta));
+      el.textContent = next + '%';
+    });
+  }, 3500);
+
+  // Topic pill toggle
+  document.querySelectorAll('.topic-pill').forEach(p => {
+    p.addEventListener('click', () => p.classList.toggle('selected'));
+  });
+  // YN toggle
+  document.querySelectorAll('.yn-toggle').forEach(group => {
+    group.querySelectorAll('.yn-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        group.querySelectorAll('.yn-opt').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+      });
+    });
+  });
+  // Amount stepper
+  document.querySelectorAll('.amount-stepper').forEach(group => {
+    group.querySelectorAll('.amount-opt').forEach(opt => {
+      opt.addEventListener('click', () => {
+        group.querySelectorAll('.amount-opt').forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
