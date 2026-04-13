@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, Inter, JetBrains_Mono, Geist } from "next/font/google";
+import { Instrument_Serif, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
@@ -38,9 +35,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={cn("h-full", "antialiased", instrumentSerif.variable, inter.variable, jetbrainsMono.variable, "font-sans", geist.variable)}
+      className={`${instrumentSerif.variable} ${inter.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full">{children}</body>
+      <body className="min-h-full" suppressHydrationWarning>{children}</body>
     </html>
   );
 }
