@@ -338,6 +338,74 @@ The impact on the Japanese tech ecosystem has been immediate. Tokyo-based startu
     publishedAt: new Date(REF - 30 * 60 * 60 * 1000).toISOString(),
     marketId: "m20",
   },
+  {
+    id: "s21",
+    topic: "economy",
+    title: "Bitcoin just crossed $68K — and *nobody panicked*",
+    summary:
+      "For the first time in a bull cycle, a new all-time high was met with institutional calm instead of retail frenzy. Analysts say the market has matured. Skeptics say it's the quiet before something louder.",
+    body: `Bitcoin crossed $68,000 on Tuesday afternoon, setting a new all-time high in what might be the least dramatic record-breaking moment in the asset's history. There were no laser eyes on Twitter. No champagne-popping Telegram groups. The price ticked up, held, and the market moved on.
+
+The muted reaction is itself the story. In previous cycles — 2017, 2021 — new highs triggered cascading waves of retail buying, media coverage, and eventually, painful corrections. This time, the buyer base is different: ETF inflows account for roughly 40% of recent volume, and most of that comes from institutional allocators with long time horizons.
+
+"The adults are in the room," said one fund manager at a New York digital asset conference last week. "Whether that's good or bad depends on what you think markets are for."
+
+Critics argue that institutional dominance has stripped Bitcoin of its original ethos — decentralized, grassroots, resistant to capture. Proponents counter that widespread adoption was always the goal, and this is what adoption looks like.`,
+    publishedAt: new Date(REF - 4 * 60 * 60 * 1000).toISOString(),
+    marketId: "m21",
+  },
+  {
+    id: "s22",
+    topic: "tech",
+    title: "Ethereum's next upgrade could make *gas fees disappear* for most users",
+    summary:
+      "A proposal called EIP-7702 would let apps pay transaction fees on behalf of users. If adopted, the average person would never see a gas fee again.",
+    body: `For years, the biggest complaint about Ethereum hasn't been speed or security — it's been the moment a new user tries to do something and gets asked to pay a "gas fee" in a currency they don't own, for a reason they don't understand.
+
+EIP-7702, scheduled for inclusion in the next major upgrade, would change that. The proposal allows applications to sponsor transaction fees on behalf of their users — the same way a website pays for its own server costs rather than billing visitors per page load.
+
+The technical mechanism is called "account abstraction," but the user-facing result is simple: you tap a button, the thing happens, and nobody mentions gas. The app absorbs the cost as a line item in its operating budget.
+
+"We've been asking regular people to understand monetary policy before they can use an app," said one of the proposal's authors. "That was always insane."
+
+The proposal has broad support among developers. The debate is over timing and edge cases, not direction. If adopted in the September upgrade, most major Ethereum apps could eliminate visible gas fees by year-end.`,
+    publishedAt: new Date(REF - 9 * 60 * 60 * 1000).toISOString(),
+    marketId: "m22",
+  },
+  {
+    id: "s23",
+    topic: "economy",
+    title: "The country that just made *Bitcoin legal tender* — again",
+    summary:
+      "After El Salvador's rocky experiment, a second nation is trying the same playbook with different safeguards. Economists are cautiously watching.",
+    body: `The Kingdom of Bhutan announced last week that Bitcoin would become legal tender alongside the ngultrum, effective August 1. The announcement came with an unusual caveat: citizens would not be required to accept it, and the government would maintain a 60-day price buffer fund to smooth volatility for merchants who do.
+
+Bhutan's approach differs from El Salvador's in several key ways. Where El Salvador mandated acceptance and launched a government wallet, Bhutan is making participation entirely voluntary and partnering with three private payment processors. The buffer fund, seeded with $50 million from the country's sovereign wealth fund, would compensate merchants for price drops within 60 days of a transaction.
+
+Economists are cautiously interested. "The voluntary model with a volatility buffer is genuinely novel," said a researcher at the IMF who was not authorized to speak publicly. "It addresses the two biggest criticisms of the Salvadoran model — coercion and merchant risk."
+
+The move is partly strategic: Bhutan's hydroelectric Bitcoin mining operation, launched quietly in 2023, has accumulated an estimated 13,000 BTC. Making Bitcoin legal tender creates domestic demand for an asset the government already holds.`,
+    publishedAt: new Date(REF - 15 * 60 * 60 * 1000).toISOString(),
+    marketId: "m23",
+  },
+  {
+    id: "s24",
+    topic: "economy",
+    title: "Why your *savings account* might soon hold stablecoins — whether you know it or not",
+    summary:
+      "Three major banks are piloting stablecoin-backed savings products. The interest rates are better. The fine print is fascinating.",
+    body: `JPMorgan, ING, and Société Générale are each piloting savings products that hold customer deposits in regulated stablecoins rather than traditional reserves. The products look identical to normal savings accounts from the customer's perspective — same FDIC-equivalent insurance, same online banking interface, same withdrawal rules.
+
+The difference is under the hood: instead of lending deposits to borrowers (the traditional model), the banks invest in short-duration Treasury-backed stablecoins that generate yield directly. The result is a savings rate of 4.8% — roughly double what most banks currently offer.
+
+"The customer doesn't need to know or care that stablecoins are involved," said a JPMorgan executive at a fintech conference in London. "They see a savings account with a better rate. That's it."
+
+Consumer advocates are cautiously supportive but want transparency. "If my savings are backed by a stablecoin, I want to know which one, who audits it, and what happens if it de-pegs," said the director of a consumer finance watchdog.
+
+The pilots are small — roughly 10,000 customers each — but the banks have signaled intent to scale if regulatory approval holds.`,
+    publishedAt: new Date(REF - 7 * 60 * 60 * 1000).toISOString(),
+    marketId: "m24",
+  },
 ];
 
 // ─── Markets ────────────────────────────────────────────────────────
@@ -502,6 +570,38 @@ export const markets: Market[] = [
     probabilityYes: 0.57,
     history: generatePriceHistory(0.57),
     resolvesAt: "2027-12-31T00:00:00Z",
+  },
+  {
+    id: "m21",
+    storyId: "s21",
+    question: "Will Bitcoin hold above $65K through June?",
+    probabilityYes: 0.71,
+    history: generatePriceHistory(0.71),
+    resolvesAt: "2026-06-30T00:00:00Z",
+  },
+  {
+    id: "m22",
+    storyId: "s22",
+    question: "Will EIP-7702 ship in the September upgrade?",
+    probabilityYes: 0.64,
+    history: generatePriceHistory(0.64),
+    resolvesAt: "2026-09-30T00:00:00Z",
+  },
+  {
+    id: "m23",
+    storyId: "s23",
+    question: "Will Bhutan's Bitcoin legal tender law survive its first year?",
+    probabilityYes: 0.53,
+    history: generatePriceHistory(0.53),
+    resolvesAt: "2027-08-01T00:00:00Z",
+  },
+  {
+    id: "m24",
+    storyId: "s24",
+    question: "Will stablecoin savings accounts reach 1M users by year-end?",
+    probabilityYes: 0.42,
+    history: generatePriceHistory(0.42),
+    resolvesAt: "2026-12-31T00:00:00Z",
   },
 ];
 
