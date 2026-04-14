@@ -50,6 +50,31 @@ export default function CryptoPage() {
               : "0%"}
             )
           </p>
+
+          {/* Breakdown by asset */}
+          <div className="mt-4 flex gap-6 border-t border-border-soft pt-4">
+            {cryptoHoldings.map((h) => {
+              const asset = cryptoAssets.find((a) => a.id === h.assetId);
+              if (!asset) return null;
+              const value = h.quantity * asset.price;
+              const pnl = value - h.quantity * h.avgBuyPrice;
+              return (
+                <div key={h.assetId} className="flex items-center gap-2">
+                  <span className="font-serif text-lg text-ink-tertiary">
+                    {h.assetId === "btc" ? "₿" : "Ξ"}
+                  </span>
+                  <div>
+                    <p className="font-mono text-sm text-ink-primary">
+                      ${value.toFixed(2)}
+                    </p>
+                    <p className={`font-mono text-[11px] ${pnl >= 0 ? "text-accent-signal" : "text-accent-cool"}`}>
+                      {pnl >= 0 ? "+" : ""}${pnl.toFixed(2)}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
       )}
 
