@@ -63,7 +63,7 @@ export function NotificationsDropdown() {
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-[calc(100vw-2rem)] max-w-80 overflow-hidden rounded-2xl border border-border-soft bg-bg-surface shadow-[0_8px_24px_-8px_rgba(28,26,23,0.12)] z-50 md:w-80">
+        <div role="region" aria-label="Notifications" className="absolute right-0 top-full mt-2 w-[calc(100vw-2rem)] max-w-80 overflow-hidden rounded-2xl border border-border-soft bg-bg-surface shadow-[0_8px_24px_-8px_rgba(28,26,23,0.12)] z-50 md:w-80">
           <div className="border-b border-border-soft px-5 py-3.5">
             <EditorialOverline>Notifications</EditorialOverline>
           </div>

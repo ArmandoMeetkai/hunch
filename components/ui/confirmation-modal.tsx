@@ -84,7 +84,7 @@ export function ConfirmationModal({
             onClick={onClose}
           >
             <div className="relative w-full max-w-[400px] rounded-[var(--radius-modal)] border border-border-soft bg-bg-surface p-8 text-center shadow-[0_8px_24px_-8px_rgba(28,26,23,0.12)]" onClick={(e) => e.stopPropagation()}>
-              <button onClick={onClose} className="absolute right-4 top-4 cursor-pointer text-ink-tertiary transition-colors hover:text-ink-primary" aria-label="Close">✕</button>
+              <button type="button" onClick={onClose} className="absolute right-4 top-4 cursor-pointer rounded-lg p-1 text-ink-tertiary transition-colors hover:bg-bg-sunken hover:text-ink-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-ink" aria-label="Close">✕</button>
               <h2 className="mb-4 font-serif text-3xl italic text-ink-primary">
                 Your hunch is on the record.
               </h2>

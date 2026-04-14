@@ -68,7 +68,7 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
             onClick={onClose}
           >
             <div className="relative w-full max-w-[400px] rounded-[var(--radius-modal)] border border-border-soft bg-bg-surface p-8 shadow-[0_8px_24px_-8px_rgba(28,26,23,0.12)]" onClick={(e) => e.stopPropagation()}>
-              <button onClick={onClose} className="absolute right-4 top-4 cursor-pointer text-ink-tertiary transition-colors hover:text-ink-primary" aria-label="Close">✕</button>
+              <button type="button" onClick={onClose} className="absolute right-4 top-4 cursor-pointer rounded-lg p-1 text-ink-tertiary transition-colors hover:bg-bg-sunken hover:text-ink-primary focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent-ink" aria-label="Close">✕</button>
               <div className="mb-6 text-center">
                 <span className="font-serif text-5xl text-ink-tertiary">
                   {CRYPTO_GLYPHS[asset.id]}

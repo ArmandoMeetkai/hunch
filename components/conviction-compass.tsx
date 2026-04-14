@@ -37,9 +37,13 @@ export function ConvictionCompass() {
   const allPositions = [...positions, ...resolvedPositions];
   const topicCounts: Record<string, number> = {};
 
+  // O(1) lookups instead of O(n) find() per position
+  const marketMap = new Map(markets.map((m) => [m.id, m]));
+  const storyByMarketMap = new Map(stories.map((s) => [s.marketId, s]));
+
   for (const pos of allPositions) {
-    const market = markets.find((m) => m.id === pos.marketId);
-    const story = market ? stories.find((s) => s.marketId === market.id) : null;
+    const market = marketMap.get(pos.marketId);
+    const story = market ? storyByMarketMap.get(market.id) : null;
     const topic = story?.topic ?? "economy";
     topicCounts[topic] = (topicCounts[topic] ?? 0) + pos.amount;
   }

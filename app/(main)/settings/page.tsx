@@ -62,13 +62,11 @@ export default function SettingsPage() {
 
       {/* Advanced */}
       <section className="mb-6 overflow-hidden rounded-2xl border border-border-soft bg-bg-surface">
-        <div
-          className="flex cursor-pointer items-center justify-between px-6 py-4"
+        <button
+          type="button"
+          className="flex w-full cursor-pointer items-center justify-between px-6 py-4 text-left"
           onClick={() => setShowAdvanced(!showAdvanced)}
-          role="button"
-          tabIndex={0}
           aria-expanded={showAdvanced}
-          onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); setShowAdvanced(!showAdvanced); } }}
         >
           <div>
             <p className="text-[15px] text-ink-primary">
@@ -78,15 +76,14 @@ export default function SettingsPage() {
               Move your balance to a wallet you control.
             </p>
           </div>
-          <button
-            disabled={predictionsToGo > 0}
-            className="whitespace-nowrap rounded-[var(--radius-pill)] bg-bg-sunken border border-border-soft px-4 py-2.5 text-[13px] text-ink-tertiary disabled:cursor-not-allowed"
+          <span
+            className={`whitespace-nowrap rounded-[var(--radius-pill)] bg-bg-sunken border border-border-soft px-4 py-2.5 text-[13px] text-ink-tertiary ${predictionsToGo > 0 ? "cursor-not-allowed" : ""}`}
           >
             {predictionsToGo > 0
               ? `${predictionsToGo} predictions to go`
               : "Available"}
-          </button>
-        </div>
+          </span>
+        </button>
 
         {showAdvanced && (
           <div className="border-t border-border-soft px-6 py-5">
