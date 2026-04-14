@@ -26,6 +26,13 @@ export function SellCryptoModal({ isOpen, onClose, asset, holding }: SellCryptoM
   const sellValue = Math.round(holdingValue * (pct / 100) * 100) / 100;
   const sellQty = holding.quantity * (pct / 100);
 
+  // Reset state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setPct(100);
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
     const handleEsc = (e: KeyboardEvent) => {

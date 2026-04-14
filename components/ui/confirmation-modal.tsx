@@ -93,7 +93,7 @@ export function ConfirmationModal({
                 You backed
               </p>
               <p className="mb-6 font-mono text-lg font-light tracking-[-0.02em] text-ink-primary">
-                ${amount < 1 ? amount.toFixed(2) : amount} on{" "}
+                ${amount.toFixed(2)} on{" "}
                 <span className={side === "yes" ? "text-accent-signal" : "text-accent-cool"}>
                   {side === "yes" ? "Yes" : "No"}
                 </span>

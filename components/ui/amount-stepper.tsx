@@ -12,9 +12,10 @@ type AmountStepperProps = {
 
 export function AmountStepper({ value, onChange }: AmountStepperProps) {
   const [custom, setCustom] = useState("");
-  const isCustomActive = custom !== "" && !AMOUNTS.includes(value as typeof AMOUNTS[number]);
   const customVal = parseFloat(custom);
-  const isOverLimit = custom !== "" && customVal > MAX_AMOUNT;
+  const isCustomActive = custom !== "";
+  const isOverLimit = isCustomActive && customVal > MAX_AMOUNT;
+  const isCustomValid = isCustomActive && customVal > 0 && customVal <= MAX_AMOUNT;
 
   return (
     <div className="flex flex-col gap-2">
@@ -40,7 +41,7 @@ export function AmountStepper({ value, onChange }: AmountStepperProps) {
         className={`flex items-center gap-2 rounded-[var(--radius-button)] border px-3 py-2 ${
           isOverLimit
             ? "border-accent-signal bg-accent-signal/5"
-            : isCustomActive
+            : isCustomValid
               ? "border-accent-ink bg-accent-highlight/30"
               : "border-border-soft bg-bg-sunken"
         }`}

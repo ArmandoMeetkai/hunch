@@ -28,6 +28,15 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
   const quantity = amount / asset.price;
   const canAfford = balance >= amount;
 
+  // Reset state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setAmount(10);
+      setCustom("");
+      setShowAddFunds(false);
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
     const handleEsc = (e: KeyboardEvent) => {

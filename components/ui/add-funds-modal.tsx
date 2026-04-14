@@ -19,6 +19,14 @@ export function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
   const [custom, setCustom] = useState("");
   const addFunds = useAppStore((s) => s.addFunds);
 
+  // Reset state when modal closes
+  useEffect(() => {
+    if (!isOpen) {
+      setSelectedAmount(10);
+      setCustom("");
+    }
+  }, [isOpen]);
+
   useEffect(() => {
     if (!isOpen) return;
     const handleEsc = (e: KeyboardEvent) => {

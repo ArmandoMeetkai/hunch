@@ -76,7 +76,7 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
 
   const payLabel =
     payWith === "dollars"
-      ? `$${amount < 1 ? amount.toFixed(2) : amount}`
+      ? `$${amount.toFixed(2)}`
       : payWith === "btc"
         ? `${(amount / (btcAsset?.price ?? 1)).toFixed(6)} BTC`
         : `${(amount / (ethAsset?.price ?? 1)).toFixed(6)} ETH`;

@@ -88,7 +88,7 @@ export function StepPractice({ onContinue }: StepPracticeProps) {
         </div>
 
         <div className="mt-4 rounded-[var(--radius-card)] bg-bg-sunken px-4 py-3 text-center text-sm text-ink-tertiary">
-          Back ${amount < 1 ? amount.toFixed(2) : amount} on{" "}
+          Back ${amount.toFixed(2)} on{" "}
           {side === "yes" ? "Yes" : "No"}
         </div>
       </div>
