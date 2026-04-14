@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import type { Side } from "@/types";
@@ -21,6 +22,7 @@ export function ConfirmationModal({
   question,
 }: ConfirmationModalProps) {
   const reducedMotion = useReducedMotion();
+  const router = useRouter();
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -103,14 +105,12 @@ export function ConfirmationModal({
               <div className="flex gap-3">
                 <button
                   onClick={() => {
-                    if (navigator.share) {
-                      navigator.share({ title: "My hunch", text: `I backed ${side === "yes" ? "Yes" : "No"} on: ${question}` }).catch(() => {});
-                    }
                     onClose();
+                    router.push("/");
                   }}
                   className="flex-1 cursor-pointer rounded-[var(--radius-button)] border border-border-firm px-5 py-3 text-sm font-medium text-ink-primary transition-colors hover:bg-bg-surface"
                 >
-                  Share
+                  Back another →
                 </button>
                 <button
                   onClick={onClose}
