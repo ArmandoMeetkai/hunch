@@ -113,7 +113,7 @@ export function NavBar() {
                   className={active ? "text-accent-ink" : "text-ink-tertiary group-hover:text-ink-secondary"}
                 />
                 <span
-                  className={`max-w-full truncate text-[10px] font-medium ${
+                  className={`max-w-full truncate text-[11px] font-medium ${
                     active ? "text-accent-ink" : "text-ink-tertiary"
                   }`}
                 >
