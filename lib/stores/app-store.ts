@@ -55,6 +55,7 @@ type AppState = {
   getPosition: (marketId: string) => Position | undefined;
   markAllNotificationsRead: () => void;
   addFunds: (amount: number) => void;
+  placeBetWithCrypto: (marketId: string, side: Side, amountUSD: number, cryptoId: string) => void;
   buyCrypto: (assetId: string, amountUSD: number) => void;
   sellCrypto: (assetId: string, amountUSD: number) => void;
   updateCryptoPrices: () => void;
@@ -131,6 +132,70 @@ export const useAppStore = create<AppState>((set, get) => ({
           unlockedLessons: [...state.user.unlockedLessons, ...newlyUnlocked],
         },
         notifications: [...newNotifications, ...state.notifications],
+      };
+    });
+  },
+
+  placeBetWithCrypto: (marketId, side, amountUSD, cryptoId) => {
+    set((state) => {
+      const market = state.markets.find((m) => m.id === marketId);
+      const cryptoAsset = state.cryptoAssets.find((a) => a.id === cryptoId);
+      const holding = state.cryptoHoldings.find((h) => h.assetId === cryptoId);
+      if (!market || !cryptoAsset || !holding) return state;
+
+      const holdingValueUSD = holding.quantity * cryptoAsset.price;
+      if (holdingValueUSD < amountUSD) return state;
+
+      const cryptoQtyToSpend = amountUSD / cryptoAsset.price;
+      const remainingQty = holding.quantity - cryptoQtyToSpend;
+
+      const expectedValue =
+        side === "yes"
+          ? amountUSD / market.probabilityYes
+          : amountUSD / (1 - market.probabilityYes);
+
+      const newPosition: Position = {
+        marketId,
+        side,
+        amount: amountUSD,
+        takenAt: new Date().toISOString(),
+        currentValue: expectedValue,
+      };
+
+      const newPredictionsCompleted = state.user.predictionsCompleted + 1;
+      const newlyUnlocked = lessons
+        .filter(
+          (l) =>
+            l.unlockAfterPredictions <= newPredictionsCompleted &&
+            !state.user.unlockedLessons.includes(l.id),
+        )
+        .map((l) => l.id);
+
+      const updatedHoldings =
+        remainingQty < 0.000001
+          ? state.cryptoHoldings.filter((h) => h.assetId !== cryptoId)
+          : state.cryptoHoldings.map((h) =>
+              h.assetId === cryptoId ? { ...h, quantity: remainingQty } : h,
+            );
+
+      return {
+        user: {
+          ...state.user,
+          positions: [...state.user.positions, newPosition],
+          predictionsCompleted: newPredictionsCompleted,
+          unlockedLessons: [...state.user.unlockedLessons, ...newlyUnlocked],
+        },
+        cryptoHoldings: updatedHoldings,
+        notifications: [
+          {
+            id: `n-bet-crypto-${Date.now()}`,
+            message: `Hunch recorded: ${market.question}`,
+            detail: `Paid ${cryptoQtyToSpend.toFixed(6)} ${cryptoAsset.symbol} (~$${amountUSD})`,
+            timestamp: new Date().toISOString(),
+            read: false,
+          },
+          ...state.notifications,
+        ],
       };
     });
   },
