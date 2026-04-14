@@ -51,6 +51,7 @@ type AppState = {
   getStory: (id: string) => (typeof stories)[0] | undefined;
   getPosition: (marketId: string) => Position | undefined;
   markAllNotificationsRead: () => void;
+  addFunds: (amount: number) => void;
 };
 
 export const useAppStore = create<AppState>((set, get) => ({
@@ -172,6 +173,25 @@ export const useAppStore = create<AppState>((set, get) => ({
   markAllNotificationsRead: () => {
     set((state) => ({
       notifications: state.notifications.map((n) => ({ ...n, read: true })),
+    }));
+  },
+
+  addFunds: (amount) => {
+    set((state) => ({
+      user: {
+        ...state.user,
+        practiceBalance: Math.round((state.user.practiceBalance + amount) * 100) / 100,
+      },
+      notifications: [
+        {
+          id: `n-funds-${Date.now()}`,
+          message: `Funds added: $${amount} to your balance`,
+          detail: `New balance: $${(Math.round((state.user.practiceBalance + amount) * 100) / 100).toFixed(2)}`,
+          timestamp: new Date().toISOString(),
+          read: false,
+        },
+        ...state.notifications,
+      ],
     }));
   },
 }));

@@ -9,6 +9,7 @@ import { Sparkline } from "@/components/ui/sparkline";
 import { PillToggle } from "@/components/ui/pill-toggle";
 import { AmountStepper } from "@/components/ui/amount-stepper";
 import { ConfirmationModal } from "@/components/ui/confirmation-modal";
+import { AddFundsModal } from "@/components/ui/add-funds-modal";
 import { EditorialOverline } from "@/components/ui/editorial-overline";
 
 type StickyMarketModuleProps = {
@@ -19,6 +20,7 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
   const [side, setSide] = useState<Side>("yes");
   const [amount, setAmount] = useState(1);
   const [showModal, setShowModal] = useState(false);
+  const [showAddFunds, setShowAddFunds] = useState(false);
   const placeBet = useAppStore((s) => s.placeBet);
   const balance = useAppStore((s) => s.user.practiceBalance);
 
@@ -84,9 +86,12 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
         </div>
 
         {balance < amount && (
-          <p className="mt-3 text-center text-[13px] text-accent-signal">
-            Not enough balance for this amount.
-          </p>
+          <button
+            onClick={() => setShowAddFunds(true)}
+            className="mt-3 w-full cursor-pointer text-center text-[13px] font-medium text-accent-signal transition-colors hover:text-accent-ink"
+          >
+            Not enough balance — Add funds →
+          </button>
         )}
 
         <button
@@ -110,6 +115,11 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
         side={side}
         amount={amount}
         question={market.question}
+      />
+
+      <AddFundsModal
+        isOpen={showAddFunds}
+        onClose={() => setShowAddFunds(false)}
       />
     </>
   );
