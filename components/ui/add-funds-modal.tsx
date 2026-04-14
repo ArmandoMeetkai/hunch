@@ -134,7 +134,7 @@ export function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
 
               <button
                 onClick={handleAdd}
-                disabled={selectedAmount <= 0}
+                disabled={selectedAmount <= 0 || (custom !== "" && (parseFloat(custom) > 500 || parseFloat(custom) <= 0 || isNaN(parseFloat(custom))))}
                 className="mb-4 w-full cursor-pointer rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Add ${selectedAmount}

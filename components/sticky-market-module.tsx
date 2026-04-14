@@ -184,7 +184,7 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
 
         <button
           onClick={handleBack}
-          disabled={!canAfford}
+          disabled={!canAfford || amount <= 0 || amount > 500}
           className="mt-4 w-full cursor-pointer rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
           aria-label={`Back ${payLabel} on ${side === "yes" ? "Yes" : "No"} for: ${market.question}`}
         >
