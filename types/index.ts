@@ -66,6 +66,22 @@ export type AppNotification = {
   read: boolean;
 };
 
+export type CryptoAsset = {
+  id: string;
+  name: string;
+  symbol: string;
+  price: number;
+  change24h: number;
+  history: PricePoint[];
+};
+
+export type CryptoHolding = {
+  assetId: string;
+  quantity: number;
+  avgBuyPrice: number;
+  boughtAt: string;
+};
+
 export type User = {
   name: string;
   practiceBalance: number;

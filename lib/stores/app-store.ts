@@ -1,6 +1,7 @@
 import { create } from "zustand";
-import type { AppNotification, Market, Position, Side, Topic, User } from "@/types";
+import type { AppNotification, CryptoAsset, CryptoHolding, Market, Position, Side, Topic, User } from "@/types";
 import { stories, markets as initialMarkets, initialUser, lessons } from "@/lib/mock-data";
+import { initialCryptoAssets } from "@/lib/mock-crypto";
 import { clampProbability } from "@/lib/price-utils";
 
 const initialNotifications: AppNotification[] = [
@@ -39,6 +40,8 @@ type AppState = {
   markets: Market[];
   stories: typeof stories;
   notifications: AppNotification[];
+  cryptoAssets: CryptoAsset[];
+  cryptoHoldings: CryptoHolding[];
 
   // Actions
   placeBet: (marketId: string, side: Side, amount: number) => void;
@@ -52,11 +55,16 @@ type AppState = {
   getPosition: (marketId: string) => Position | undefined;
   markAllNotificationsRead: () => void;
   addFunds: (amount: number) => void;
+  buyCrypto: (assetId: string, amountUSD: number) => void;
+  sellCrypto: (assetId: string, amountUSD: number) => void;
+  updateCryptoPrices: () => void;
 };
 
 export const useAppStore = create<AppState>((set, get) => ({
   user: initialUser,
   markets: initialMarkets,
+  cryptoAssets: initialCryptoAssets,
+  cryptoHoldings: [],
   stories,
   notifications: initialNotifications,
 
@@ -192,6 +200,111 @@ export const useAppStore = create<AppState>((set, get) => ({
         },
         ...state.notifications,
       ],
+    }));
+  },
+
+  buyCrypto: (assetId, amountUSD) => {
+    set((state) => {
+      const asset = state.cryptoAssets.find((a) => a.id === assetId);
+      if (!asset) return state;
+      if (state.user.practiceBalance < amountUSD) return state;
+
+      const quantity = amountUSD / asset.price;
+      const existing = state.cryptoHoldings.find((h) => h.assetId === assetId);
+
+      let updatedHoldings: CryptoHolding[];
+      if (existing) {
+        const totalQty = existing.quantity + quantity;
+        const totalCost = existing.avgBuyPrice * existing.quantity + amountUSD;
+        updatedHoldings = state.cryptoHoldings.map((h) =>
+          h.assetId === assetId
+            ? { ...h, quantity: totalQty, avgBuyPrice: totalCost / totalQty, boughtAt: new Date().toISOString() }
+            : h,
+        );
+      } else {
+        updatedHoldings = [
+          ...state.cryptoHoldings,
+          { assetId, quantity, avgBuyPrice: asset.price, boughtAt: new Date().toISOString() },
+        ];
+      }
+
+      return {
+        user: {
+          ...state.user,
+          practiceBalance: Math.round((state.user.practiceBalance - amountUSD) * 100) / 100,
+        },
+        cryptoHoldings: updatedHoldings,
+        notifications: [
+          {
+            id: `n-buy-${Date.now()}`,
+            message: `Bought $${amountUSD} of ${asset.name}`,
+            detail: `${quantity.toFixed(6)} ${asset.symbol} at $${asset.price.toLocaleString()}`,
+            timestamp: new Date().toISOString(),
+            read: false,
+          },
+          ...state.notifications,
+        ],
+      };
+    });
+  },
+
+  sellCrypto: (assetId, amountUSD) => {
+    set((state) => {
+      const asset = state.cryptoAssets.find((a) => a.id === assetId);
+      const holding = state.cryptoHoldings.find((h) => h.assetId === assetId);
+      if (!asset || !holding) return state;
+
+      const holdingValueUSD = holding.quantity * asset.price;
+      const sellAmountUSD = Math.min(amountUSD, holdingValueUSD);
+      const sellQuantity = sellAmountUSD / asset.price;
+      const remainingQty = holding.quantity - sellQuantity;
+
+      const updatedHoldings =
+        remainingQty < 0.000001
+          ? state.cryptoHoldings.filter((h) => h.assetId !== assetId)
+          : state.cryptoHoldings.map((h) =>
+              h.assetId === assetId ? { ...h, quantity: remainingQty } : h,
+            );
+
+      return {
+        user: {
+          ...state.user,
+          practiceBalance: Math.round((state.user.practiceBalance + sellAmountUSD) * 100) / 100,
+        },
+        cryptoHoldings: updatedHoldings,
+        notifications: [
+          {
+            id: `n-sell-${Date.now()}`,
+            message: `Sold $${sellAmountUSD.toFixed(2)} of ${asset.name}`,
+            detail: `${sellQuantity.toFixed(6)} ${asset.symbol} at $${asset.price.toLocaleString()}`,
+            timestamp: new Date().toISOString(),
+            read: false,
+          },
+          ...state.notifications,
+        ],
+      };
+    });
+  },
+
+  updateCryptoPrices: () => {
+    set((state) => ({
+      cryptoAssets: state.cryptoAssets.map((asset) => {
+        const volatility = asset.id === "btc" ? 0.002 : 0.003;
+        const delta = (Math.random() - 0.5) * 2 * asset.price * volatility;
+        const newPrice = Math.round((asset.price + delta) * 100) / 100;
+        const oldestPrice = asset.history.length > 0 ? asset.history[0].p : asset.price;
+        const change24h = Math.round(((newPrice - oldestPrice) / oldestPrice) * 10000) / 100;
+
+        return {
+          ...asset,
+          price: newPrice,
+          change24h,
+          history: [
+            ...asset.history.slice(-29),
+            { t: new Date().toISOString(), p: newPrice },
+          ],
+        };
+      }),
     }));
   },
 }));
