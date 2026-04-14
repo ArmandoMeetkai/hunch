@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Bell } from "lucide-react";
 import { useAppStore } from "@/lib/stores/app-store";
 import { EditorialOverline } from "@/components/ui/editorial-overline";
@@ -8,6 +9,7 @@ import { EditorialOverline } from "@/components/ui/editorial-overline";
 export function NotificationsDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const router = useRouter();
   const notifications = useAppStore((s) => s.notifications);
   const markAllRead = useAppStore((s) => s.markAllNotificationsRead);
 
@@ -81,9 +83,15 @@ export function NotificationsDropdown() {
               notifications.map((n) => (
                 <div
                   key={n.id}
+                  onClick={() => {
+                    if (n.href) {
+                      router.push(n.href);
+                      setIsOpen(false);
+                    }
+                  }}
                   className={`border-b border-border-soft px-5 py-4 last:border-b-0 transition-colors ${
                     !n.read ? "bg-accent-highlight/15" : ""
-                  }`}
+                  } ${n.href ? "cursor-pointer hover:bg-bg-sunken" : ""}`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">

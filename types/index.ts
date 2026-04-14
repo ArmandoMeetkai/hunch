@@ -67,6 +67,7 @@ export type AppNotification = {
   detail?: string;
   timestamp: string;
   read: boolean;
+  href?: string;
 };
 
 export type CryptoAsset = {

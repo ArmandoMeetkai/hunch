@@ -15,6 +15,7 @@ const initialNotifications: AppNotification[] = [
     detail: "You backed Yes · $5 → +$2.12",
     timestamp: "2026-04-10T00:00:00Z",
     read: false,
+    href: "/track-record",
   },
   {
     id: "n2",
@@ -22,6 +23,7 @@ const initialNotifications: AppNotification[] = [
     detail: "You backed Yes · $1 → −$1.00",
     timestamp: "2026-04-08T00:00:00Z",
     read: false,
+    href: "/track-record",
   },
   {
     id: "n3",
@@ -29,6 +31,7 @@ const initialNotifications: AppNotification[] = [
     detail: "You completed 3 predictions",
     timestamp: "2026-04-07T14:00:00Z",
     read: true,
+    href: "/learn",
   },
   {
     id: "n4",
@@ -112,6 +115,7 @@ export const useAppStore = create<AppState>((set, get) => ({
           detail: `You backed ${side === "yes" ? "Yes" : "No"} · $${amount < 1 ? amount.toFixed(2) : amount}`,
           timestamp: new Date().toISOString(),
           read: false,
+          href: "/portfolio",
         },
       ];
 
@@ -125,6 +129,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             detail: `You completed ${newPredictionsCompleted} predictions`,
             timestamp: new Date().toISOString(),
             read: false,
+            href: "/learn",
           });
         }
       }
@@ -200,6 +205,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             detail: `Paid ${cryptoQtyToSpend.toFixed(6)} ${cryptoAsset.symbol} (~$${amountUSD})`,
             timestamp: new Date().toISOString(),
             read: false,
+            href: "/portfolio",
           },
           ...state.notifications,
         ],
@@ -265,6 +271,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             : `You backed ${r.side === "yes" ? "Yes" : "No"} · $${r.amount} → −$${r.amount.toFixed(2)}`,
           timestamp: new Date().toISOString(),
           read: false,
+          href: "/track-record",
         };
       });
 
@@ -343,6 +350,7 @@ export const useAppStore = create<AppState>((set, get) => ({
           detail: `New balance: $${(Math.round((state.user.practiceBalance + amount) * 100) / 100).toFixed(2)}`,
           timestamp: new Date().toISOString(),
           read: false,
+          href: "/portfolio",
         },
         ...state.notifications,
       ],
@@ -387,6 +395,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             detail: `${quantity.toFixed(6)} ${asset.symbol} at $${asset.price.toLocaleString()}`,
             timestamp: new Date().toISOString(),
             read: false,
+            href: "/crypto",
           },
           ...state.notifications,
         ],
@@ -425,6 +434,7 @@ export const useAppStore = create<AppState>((set, get) => ({
             detail: `${sellQuantity.toFixed(6)} ${asset.symbol} at $${asset.price.toLocaleString()}`,
             timestamp: new Date().toISOString(),
             read: false,
+            href: "/crypto",
           },
           ...state.notifications,
         ],
