@@ -1,7 +1,11 @@
 import { create } from "zustand";
 import type { AppNotification, CryptoAsset, CryptoHolding, Market, Position, ResolvedPosition, Side, Topic, User } from "@/types";
-import { stories, markets as initialMarkets, initialUser, lessons } from "@/lib/mock-data";
+import { stories as baseStories, markets as baseMarkets, initialUser, lessons } from "@/lib/mock-data";
+import { extraStories, extraMarkets } from "@/lib/mock-stories-extra";
 import { initialCryptoAssets } from "@/lib/mock-crypto";
+
+const stories = [...baseStories, ...extraStories];
+const initialMarkets = [...baseMarkets, ...extraMarkets];
 import { clampProbability } from "@/lib/price-utils";
 
 const initialNotifications: AppNotification[] = [
