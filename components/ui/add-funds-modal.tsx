@@ -16,6 +16,7 @@ export function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
   const reducedMotion = useReducedMotion();
   const modalRef = useRef<HTMLDivElement>(null);
   const [selectedAmount, setSelectedAmount] = useState<number>(10);
+  const [custom, setCustom] = useState("");
   const addFunds = useAppStore((s) => s.addFunds);
 
   useEffect(() => {
@@ -80,13 +81,13 @@ export function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
                 Choose an amount. No fees on practice top-ups.
               </p>
 
-              <div className="mb-5 grid grid-cols-4 gap-2">
+              <div className="mb-3 grid grid-cols-4 gap-2">
                 {AMOUNTS.map((amount) => (
                   <button
                     key={amount}
-                    onClick={() => setSelectedAmount(amount)}
+                    onClick={() => { setSelectedAmount(amount); setCustom(""); }}
                     className={`cursor-pointer rounded-[var(--radius-button)] border py-3 text-center font-mono text-sm transition-all duration-150 ${
-                      selectedAmount === amount
+                      selectedAmount === amount && custom === ""
                         ? "border-accent-ink bg-accent-highlight text-accent-ink"
                         : "border-border-soft bg-transparent text-ink-secondary hover:border-border-firm"
                     }`}
@@ -96,9 +97,30 @@ export function AddFundsModal({ isOpen, onClose }: AddFundsModalProps) {
                 ))}
               </div>
 
+              {/* Custom amount input */}
+              <div className="mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border border-border-soft bg-bg-sunken px-4 py-2.5">
+                <span className="font-mono text-sm text-ink-tertiary">$</span>
+                <input
+                  type="number"
+                  min="1"
+                  max="1000"
+                  step="1"
+                  placeholder="Other amount"
+                  value={custom}
+                  onChange={(e) => {
+                    setCustom(e.target.value);
+                    const val = parseFloat(e.target.value);
+                    if (val > 0) setSelectedAmount(val);
+                  }}
+                  onFocus={() => setCustom(custom || String(selectedAmount))}
+                  className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
+                />
+              </div>
+
               <button
                 onClick={handleAdd}
-                className="mb-4 w-full cursor-pointer rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px"
+                disabled={selectedAmount <= 0}
+                className="mb-4 w-full cursor-pointer rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Add ${selectedAmount}
               </button>
