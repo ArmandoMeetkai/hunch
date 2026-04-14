@@ -100,6 +100,13 @@ export function NavBar() {
                 }`}
                 aria-current={active ? "page" : undefined}
               >
+                {active && (
+                  <motion.span
+                    layoutId="nav-indicator-desktop"
+                    className="absolute -left-3 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-full bg-accent-ink"
+                    transition={{ type: "spring", stiffness: 260, damping: 28 }}
+                  />
+                )}
                 <Icon
                   size={20}
                   strokeWidth={1.5}
