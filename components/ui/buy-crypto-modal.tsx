@@ -6,6 +6,7 @@ import { useReducedMotion } from "@/hooks/use-reduced-motion";
 import { useAppStore } from "@/lib/stores/app-store";
 import type { CryptoAsset } from "@/types";
 import { CRYPTO_GLYPHS } from "@/lib/mock-crypto";
+import { AddFundsModal } from "./add-funds-modal";
 
 const AMOUNTS = [5, 10, 25, 50] as const;
 
@@ -20,6 +21,7 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
   const modalRef = useRef<HTMLDivElement>(null);
   const [amount, setAmount] = useState<number>(10);
   const [custom, setCustom] = useState("");
+  const [showAddFunds, setShowAddFunds] = useState(false);
   const buyCrypto = useAppStore((s) => s.buyCrypto);
   const balance = useAppStore((s) => s.user.practiceBalance);
 
@@ -134,12 +136,20 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
               </button>
 
               {!canAfford && (
-                <p className="text-center text-[12px] text-accent-signal">
-                  Not enough balance.
-                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowAddFunds(true)}
+                  className="w-full cursor-pointer text-center text-[13px] font-medium text-accent-signal transition-colors hover:text-accent-ink"
+                >
+                  Not enough balance — Add funds →
+                </button>
               )}
             </div>
           </motion.div>
+          <AddFundsModal
+            isOpen={showAddFunds}
+            onClose={() => setShowAddFunds(false)}
+          />
         </>
       )}
     </AnimatePresence>
