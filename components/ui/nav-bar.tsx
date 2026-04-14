@@ -87,7 +87,7 @@ export function NavBar() {
           H
         </Link>
 
-        <div className="flex flex-1 flex-col items-center gap-2">
+        <div className="flex flex-1 flex-col items-center gap-1 px-1">
           {NAV_ITEMS.map((item) => {
             const active = isActive(item.href);
             const Icon = item.icon;
@@ -95,23 +95,18 @@ export function NavBar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative flex w-full flex-col items-center gap-1 rounded-lg py-2 transition-colors hover:bg-bg-sunken"
+                className={`group relative flex w-full flex-col items-center gap-1 rounded-xl px-2 py-2.5 transition-colors ${
+                  active ? "bg-bg-sunken" : "hover:bg-bg-sunken"
+                }`}
                 aria-current={active ? "page" : undefined}
               >
-                {active && (
-                  <motion.span
-                    layoutId="nav-indicator-desktop"
-                    className="absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-full bg-accent-ink"
-                    transition={{ type: "spring", stiffness: 260, damping: 28 }}
-                  />
-                )}
                 <Icon
                   size={20}
                   strokeWidth={1.5}
                   className={active ? "text-accent-ink" : "text-ink-tertiary group-hover:text-ink-secondary"}
                 />
                 <span
-                  className={`max-w-full truncate text-[9px] font-medium ${
+                  className={`max-w-full truncate text-[10px] font-medium ${
                     active ? "text-accent-ink" : "text-ink-tertiary"
                   }`}
                 >
