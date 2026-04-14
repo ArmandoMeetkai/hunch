@@ -19,21 +19,22 @@ export function MarketStrip({ market, storyId }: MarketStripProps) {
     : "var(--color-accent-cool)";
 
   return (
-    <div className="flex items-center gap-5 rounded-[var(--radius-card)] border border-border-soft bg-bg-surface px-5 py-4 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)]">
-      <p className="flex-1 text-[15px] font-medium text-ink-primary">
+    <div className="flex flex-col gap-3 rounded-[var(--radius-card)] border border-border-soft bg-bg-surface px-4 py-3 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)] md:flex-row md:items-center md:gap-5 md:px-5 md:py-4">
+      <p className="flex-1 text-[14px] font-medium leading-snug text-ink-primary line-clamp-2 md:text-[15px]">
         {market.question}
       </p>
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-3 md:gap-4">
         <Sparkline
           data={market.history}
-          width={80}
-          height={24}
+          width={60}
+          height={20}
           color={sparklineColor}
+          className="hidden sm:block md:block"
         />
-        <ProbabilityNumber value={market.probabilityYes} size={28} />
+        <ProbabilityNumber value={market.probabilityYes} size={24} className="md:text-[28px]" />
         <Link
           href={`/story/${storyId}`}
-          className="whitespace-nowrap rounded-[var(--radius-pill)] border border-border-firm bg-bg-canvas px-3.5 py-2 text-[13px] font-medium text-ink-primary transition-colors hover:bg-bg-surface"
+          className="whitespace-nowrap rounded-[var(--radius-pill)] border border-border-firm bg-bg-canvas px-3 py-1.5 text-[12px] font-medium text-ink-primary transition-colors hover:bg-bg-surface md:px-3.5 md:py-2 md:text-[13px]"
           aria-label={`Back this: ${market.question}`}
         >
           Back this →

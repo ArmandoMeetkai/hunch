@@ -72,7 +72,13 @@ export default function PortfolioPage() {
         </div>
 
         {/* Right column: positions only */}
-        <div className="flex flex-col gap-4">
+        <div className="flex flex-col gap-4 max-h-[600px] overflow-y-auto md:max-h-none scrollbar-thin">
+          {user.positions.length === 0 && (
+            <div className="flex flex-col items-center justify-center rounded-2xl border border-border-soft bg-bg-surface py-12 text-center">
+              <p className="font-serif text-lg italic text-ink-tertiary">No active positions.</p>
+              <p className="mt-2 text-[13px] text-ink-tertiary">Back a hunch from the feed to get started.</p>
+            </div>
+          )}
           {user.positions.map((pos) => {
             const market = markets.find((m) => m.id === pos.marketId);
             if (!market) return null;
@@ -89,8 +95,7 @@ export default function PortfolioPage() {
             return (
               <div
                 key={`${pos.marketId}-${pos.takenAt}`}
-                className="flex flex-col justify-between rounded-2xl border border-border-soft bg-bg-surface p-5 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)]"
-                style={{ minHeight: "120px" }}
+                className="flex flex-col justify-between gap-2 rounded-2xl border border-border-soft bg-bg-surface p-4 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)] md:p-5"
               >
                 <EditorialOverline>{topicLabel}</EditorialOverline>
                 <div>

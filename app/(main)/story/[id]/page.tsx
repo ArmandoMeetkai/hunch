@@ -83,16 +83,16 @@ export default function StoryDetailPage({
         <EditorialOverline>
           {topicLabel} · {dateStr} · 6 min read
         </EditorialOverline>
-        <h1 className="mt-5 font-serif text-5xl leading-[1.05] tracking-[-0.015em] text-ink-primary md:text-6xl lg:text-7xl">
+        <h1 className="mt-5 font-serif text-3xl leading-[1.1] tracking-[-0.015em] text-ink-primary sm:text-4xl md:text-5xl lg:text-7xl">
           {renderTitle(story.title)}
         </h1>
-        <p className="mt-4 max-w-[600px] font-serif text-[22px] italic leading-[1.4] text-ink-secondary">
+        <p className="mt-4 max-w-[600px] font-serif text-lg italic leading-[1.4] text-ink-secondary md:text-[22px]">
           {story.summary}
         </p>
       </div>
 
       {/* Article grid */}
-      <div className="grid gap-14 md:grid-cols-[1fr_320px]">
+      <div className="grid gap-10 lg:grid-cols-[1fr_320px] lg:gap-14">
         {/* Body */}
         <article className="max-w-[600px]">
           {paragraphs.map((p, i) => (

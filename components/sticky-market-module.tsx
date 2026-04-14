@@ -83,7 +83,7 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
 
   return (
     <>
-      <aside className="sticky top-6 rounded-2xl border border-border-soft bg-bg-surface p-7">
+      <aside className="rounded-2xl border border-border-soft bg-bg-surface p-5 md:p-7 lg:sticky lg:top-6">
         <EditorialOverline className="mb-4 block">
           The Hunch
         </EditorialOverline>

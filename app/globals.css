@@ -86,6 +86,13 @@ input[type="number"] {
   outline-offset: 2px;
 }
 
+/* Custom scrollbar utilities */
+.scrollbar-none::-webkit-scrollbar { display: none; }
+.scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+.scrollbar-thin::-webkit-scrollbar { width: 4px; }
+.scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+.scrollbar-thin::-webkit-scrollbar-thumb { background: var(--color-border-firm); border-radius: 2px; }
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   *,

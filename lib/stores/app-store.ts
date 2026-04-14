@@ -338,6 +338,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   },
 
   addFunds: (amount) => {
+    if (amount <= 0 || amount > 500) return;
     set((state) => ({
       user: {
         ...state.user,
