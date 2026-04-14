@@ -42,18 +42,17 @@ export function AmountStepper({ value, onChange }: AmountStepperProps) {
       >
         <span className="font-mono text-sm text-ink-tertiary">$</span>
         <input
-          type="number"
-          min="0.01"
-          max="1000"
-          step="0.01"
+          type="text"
+          inputMode="decimal"
           placeholder="Other"
           value={custom}
           onChange={(e) => {
-            setCustom(e.target.value);
-            const val = parseFloat(e.target.value);
-            if (val > 0) onChange(val);
+            const raw = e.target.value.replace(/[^0-9.]/g, "");
+            setCustom(raw);
+            const val = parseFloat(raw);
+            if (val > 0 && val <= 500) onChange(val);
           }}
-          className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
+          className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none [appearance:textfield]"
         />
       </div>
     </div>
