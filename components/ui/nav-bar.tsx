@@ -75,7 +75,7 @@ export function NavBar() {
 
       {/* Desktop sidebar */}
       <nav
-        className="fixed left-0 top-0 z-40 hidden h-full w-28 flex-col items-center border-r border-border-soft bg-bg-canvas px-3 py-6 md:flex"
+        className="fixed left-0 top-0 z-40 hidden h-full w-20 flex-col items-center border-r border-border-soft bg-bg-canvas px-2 py-6 md:flex"
         role="navigation"
         aria-label="Main navigation"
       >
@@ -103,7 +103,7 @@ export function NavBar() {
                 {active && (
                   <motion.span
                     layoutId="nav-indicator-desktop"
-                    className="absolute -left-3 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-full bg-accent-ink"
+                    className="absolute -left-2 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-full bg-accent-ink"
                     transition={{ type: "spring", stiffness: 260, damping: 28 }}
                   />
                 )}
