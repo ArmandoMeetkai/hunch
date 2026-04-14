@@ -11,7 +11,7 @@ export default function MainLayout({
     <OnboardingGuard>
       <NavBar />
       {/* Content area: offset for desktop sidebar, bottom padding for mobile nav */}
-      <main className="min-h-screen pb-20 md:pl-24 md:pb-0">
+      <main className="min-h-screen pb-20 md:pl-28 md:pb-0">
         <PageTransition>{children}</PageTransition>
       </main>
     </OnboardingGuard>

@@ -75,7 +75,7 @@ export function NavBar() {
 
       {/* Desktop sidebar */}
       <nav
-        className="fixed left-0 top-0 z-40 hidden h-full w-24 flex-col items-center border-r border-border-soft bg-bg-canvas px-2 py-6 md:flex"
+        className="fixed left-0 top-0 z-40 hidden h-full w-28 flex-col items-center border-r border-border-soft bg-bg-canvas px-3 py-6 md:flex"
         role="navigation"
         aria-label="Main navigation"
       >
