@@ -95,7 +95,7 @@ export function NavBar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className="group relative flex flex-col items-center gap-1 rounded-lg px-2 py-1.5 transition-colors hover:bg-bg-sunken"
+                className="group relative flex w-full flex-col items-center gap-1 rounded-lg py-2 transition-colors hover:bg-bg-sunken"
                 aria-current={active ? "page" : undefined}
               >
                 {active && (
