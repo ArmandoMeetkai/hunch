@@ -780,6 +780,10 @@ export const resolvedMarketQuestions: Record<string, string> = {
 
 // ─── Initial user ───────────────────────────────────────────────────
 
+// Stagger mock positions so they resolve progressively during the demo
+// Each one resolves ~15s after the previous (resolver checks every 10s, resolves after 60s)
+const NOW_MS = Date.now();
+
 export const initialUser: User = {
   name: "Armando",
   practiceBalance: 10.0,
@@ -789,7 +793,7 @@ export const initialUser: User = {
       side: "yes",
       amount: 1,
       paidWith: "dollars",
-      takenAt: "2026-04-12T10:00:00Z",
+      takenAt: new Date(NOW_MS - 50_000).toISOString(), // resolves ~10s after app start
       currentValue: 1.18,
     },
     {
@@ -797,7 +801,7 @@ export const initialUser: User = {
       side: "yes",
       amount: 5,
       paidWith: "dollars",
-      takenAt: "2026-04-10T14:00:00Z",
+      takenAt: new Date(NOW_MS - 35_000).toISOString(), // resolves ~25s after app start
       currentValue: 7.12,
     },
     {
@@ -805,7 +809,7 @@ export const initialUser: User = {
       side: "no",
       amount: 1,
       paidWith: "dollars",
-      takenAt: "2026-04-11T09:00:00Z",
+      takenAt: new Date(NOW_MS - 20_000).toISOString(), // resolves ~40s after app start
       currentValue: 1.04,
     },
     {
@@ -813,7 +817,7 @@ export const initialUser: User = {
       side: "no",
       amount: 1,
       paidWith: "dollars",
-      takenAt: "2026-04-09T16:00:00Z",
+      takenAt: new Date(NOW_MS - 5_000).toISOString(),  // resolves ~55s after app start
       currentValue: 0.91,
     },
   ],
