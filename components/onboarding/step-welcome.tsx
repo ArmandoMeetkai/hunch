@@ -20,6 +20,7 @@ export function StepWelcome({ onContinue }: StepWelcomeProps) {
 
       <button
         onClick={onContinue}
+        autoFocus
         className="mt-12 cursor-pointer rounded-[var(--radius-pill)] bg-accent-ink px-6 py-3 text-sm font-medium text-bg-canvas transition-transform hover:-translate-y-px"
       >
         Continue →

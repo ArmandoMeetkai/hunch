@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Side } from "@/types";
 import { stories, markets } from "@/lib/mock-data";
 import { EditorialOverline } from "@/components/ui/editorial-overline";
@@ -17,6 +17,13 @@ export function StepPractice({ onContinue }: StepPracticeProps) {
   const [side, setSide] = useState<Side>("yes");
   const [amount, setAmount] = useState(1);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const continueRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (hasInteracted) {
+      continueRef.current?.focus();
+    }
+  }, [hasInteracted]);
 
   // Use the first story as the example
   const story = stories[0];
@@ -87,6 +94,7 @@ export function StepPractice({ onContinue }: StepPracticeProps) {
       </div>
 
       <button
+        ref={continueRef}
         onClick={onContinue}
         disabled={!hasInteracted}
         className="mt-8 cursor-pointer rounded-[var(--radius-pill)] bg-accent-ink px-6 py-3 text-sm font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"

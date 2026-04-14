@@ -22,6 +22,7 @@ export function StepMoney({ onStart }: StepMoneyProps) {
 
       <button
         onClick={onStart}
+        autoFocus
         className="mt-12 cursor-pointer rounded-[var(--radius-pill)] bg-accent-ink px-6 py-3 text-sm font-medium text-bg-canvas transition-transform hover:-translate-y-px"
       >
         Start reading →

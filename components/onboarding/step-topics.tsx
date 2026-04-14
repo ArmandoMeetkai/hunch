@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import type { Topic } from "@/types";
 
 const ALL_TOPICS: { label: string; value: Topic }[] = [
@@ -21,6 +21,13 @@ type StepTopicsProps = {
 
 export function StepTopics({ onContinue }: StepTopicsProps) {
   const [selected, setSelected] = useState<Topic[]>([]);
+  const continueRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (selected.length >= 3) {
+      continueRef.current?.focus();
+    }
+  }, [selected]);
 
   const toggle = (topic: Topic) => {
     setSelected((prev) =>
@@ -58,6 +65,7 @@ export function StepTopics({ onContinue }: StepTopicsProps) {
       </div>
 
       <button
+        ref={continueRef}
         onClick={() => onContinue(selected)}
         disabled={selected.length < 3}
         className="mt-12 cursor-pointer rounded-[var(--radius-pill)] bg-accent-ink px-6 py-3 text-sm font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-40 disabled:cursor-not-allowed"
