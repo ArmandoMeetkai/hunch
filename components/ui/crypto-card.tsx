@@ -7,6 +7,7 @@ import { PriceNumber } from "./price-number";
 import { Sparkline } from "./sparkline";
 import { BuyCryptoModal } from "./buy-crypto-modal";
 import { SellCryptoModal } from "./sell-crypto-modal";
+import { EditorialOverline } from "./editorial-overline";
 
 type CryptoCardProps = {
   asset: CryptoAsset;
@@ -30,76 +31,82 @@ export function CryptoCard({ asset, holding }: CryptoCardProps) {
 
   return (
     <>
-      <div className="overflow-hidden rounded-2xl border border-border-soft bg-bg-surface p-6 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)]">
-        {/* Header: glyph + name + price */}
-        <div className="mb-4 flex items-start justify-between">
-          <div className="flex items-center gap-3">
-            <span className="font-serif text-3xl text-ink-tertiary">
-              {CRYPTO_GLYPHS[asset.id]}
-            </span>
-            <div>
-              <h3 className="text-[15px] font-medium text-ink-primary">
-                {asset.name}
-              </h3>
-              <p className="text-[12px] text-ink-tertiary">{asset.symbol}</p>
+      <div className="overflow-hidden rounded-2xl border border-border-soft bg-bg-surface transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)]">
+        {/* Top section with padding */}
+        <div className="p-6">
+          {/* Header row */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="grid h-12 w-12 place-items-center rounded-full bg-bg-sunken">
+                <span className="font-serif text-2xl text-accent-ink">
+                  {CRYPTO_GLYPHS[asset.id]}
+                </span>
+              </div>
+              <div>
+                <h3 className="font-serif text-lg text-ink-primary">{asset.name}</h3>
+                <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-tertiary">{asset.symbol}</p>
+              </div>
             </div>
-          </div>
-          <div className="text-right">
-            <PriceNumber value={asset.price} size={24} />
-            <p className={`mt-0.5 text-[13px] ${changeColor}`}>
-              {isUp ? "↗" : "↘"} {isUp ? "+" : ""}
-              {asset.change24h.toFixed(1)}%
-            </p>
+            <div className="text-right">
+              <PriceNumber value={asset.price} size={28} />
+              <p className={`mt-1 font-mono text-[13px] ${changeColor}`}>
+                {isUp ? "↗" : "↘"} {isUp ? "+" : ""}{asset.change24h.toFixed(1)}% <span className="text-ink-tertiary">24h</span>
+              </p>
+            </div>
           </div>
         </div>
 
-        {/* Sparkline */}
-        <Sparkline
-          data={asset.history}
-          width={280}
-          height={48}
-          color={sparklineColor}
-          className="mb-4 w-full"
-        />
+        {/* Sparkline — full width, no padding */}
+        <div className="px-6">
+          <Sparkline
+            data={asset.history}
+            width={600}
+            height={80}
+            color={sparklineColor}
+            className="w-full"
+          />
+        </div>
 
-        {/* Holding info */}
-        {holding && (
-          <div className="mb-4 rounded-lg bg-bg-sunken px-4 py-3">
+        {/* Holding section */}
+        {holding ? (
+          <div className="mx-6 mt-4 mb-6 rounded-xl bg-bg-sunken p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-[11px] font-medium uppercase tracking-[0.12em] text-ink-tertiary">
-                  Your holding
-                </p>
-                <p className="mt-0.5 font-mono text-sm text-ink-primary">
+                <EditorialOverline>Your holding</EditorialOverline>
+                <p className="mt-1 font-mono text-[15px] font-light tracking-[-0.02em] text-ink-primary">
                   {holding.quantity.toFixed(6)} {asset.symbol}
                 </p>
               </div>
               <div className="text-right">
-                <p className="font-mono text-sm text-ink-primary">
+                <p className="font-mono text-[15px] font-light tracking-[-0.02em] text-ink-primary">
                   ${holdingValue.toFixed(2)}
                 </p>
-                <p
-                  className={`font-mono text-[12px] ${holdingPnl >= 0 ? "text-accent-signal" : "text-accent-cool"}`}
-                >
-                  {holdingPnl >= 0 ? "+" : ""}${holdingPnl.toFixed(2)}
+                <p className={`mt-0.5 font-mono text-[12px] ${holdingPnl >= 0 ? "text-accent-signal" : "text-accent-cool"}`}>
+                  {holdingPnl >= 0 ? "↗ +" : "↘ "}${Math.abs(holdingPnl).toFixed(2)}
                 </p>
               </div>
             </div>
           </div>
+        ) : (
+          <div className="mx-6 mt-4 mb-6 rounded-xl border border-dashed border-border-soft p-4 text-center">
+            <p className="font-serif text-[15px] italic text-ink-tertiary">
+              You don&apos;t own any {asset.name} yet.
+            </p>
+          </div>
         )}
 
-        {/* Actions */}
-        <div className="flex gap-3">
+        {/* Actions — full width bottom bar */}
+        <div className="flex border-t border-border-soft">
           <button
             onClick={() => setShowBuy(true)}
-            className="flex-1 cursor-pointer rounded-[var(--radius-button)] bg-accent-ink py-2.5 text-center text-sm font-medium text-bg-canvas transition-transform hover:-translate-y-px"
+            className={`flex-1 cursor-pointer py-3.5 text-center text-sm font-medium text-bg-canvas bg-accent-ink transition-colors hover:opacity-90 ${holding ? "rounded-bl-2xl" : "rounded-b-2xl"}`}
           >
-            Buy
+            Buy {asset.name}
           </button>
           {holding && (
             <button
               onClick={() => setShowSell(true)}
-              className="flex-1 cursor-pointer rounded-[var(--radius-button)] border border-border-firm py-2.5 text-center text-sm font-medium text-ink-primary transition-colors hover:bg-bg-surface"
+              className="flex-1 cursor-pointer rounded-br-2xl border-l border-border-soft py-3.5 text-center text-sm font-medium text-ink-primary transition-colors hover:bg-bg-sunken"
             >
               Sell
             </button>
