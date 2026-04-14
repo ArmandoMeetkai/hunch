@@ -78,6 +78,9 @@ input[type="number"] {
 }
 
 /* Focus rings — editorial, not browser default */
+*:focus {
+  outline: none;
+}
 *:focus-visible {
   outline: 2px solid var(--color-accent-ink);
   outline-offset: 2px;
