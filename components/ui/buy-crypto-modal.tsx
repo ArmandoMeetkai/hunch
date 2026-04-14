@@ -19,6 +19,7 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
   const reducedMotion = useReducedMotion();
   const modalRef = useRef<HTMLDivElement>(null);
   const [amount, setAmount] = useState<number>(10);
+  const [custom, setCustom] = useState("");
   const buyCrypto = useAppStore((s) => s.buyCrypto);
   const balance = useAppStore((s) => s.user.practiceBalance);
 
@@ -80,13 +81,13 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
                 </p>
               </div>
 
-              <div className="mb-5 grid grid-cols-4 gap-2">
+              <div className="mb-3 grid grid-cols-4 gap-2">
                 {AMOUNTS.map((a) => (
                   <button
                     key={a}
-                    onClick={() => setAmount(a)}
+                    onClick={() => { setAmount(a); setCustom(""); }}
                     className={`cursor-pointer rounded-[var(--radius-button)] border py-3 text-center font-mono text-sm transition-all duration-150 ${
-                      amount === a
+                      amount === a && custom === ""
                         ? "border-accent-ink bg-accent-highlight text-accent-ink"
                         : "border-border-soft text-ink-secondary hover:border-border-firm"
                     }`}
@@ -94,6 +95,25 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
                     ${a}
                   </button>
                 ))}
+              </div>
+
+              <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-2.5 ${
+                custom !== "" ? "border-accent-ink bg-accent-highlight/30" : "border-border-soft bg-bg-sunken"
+              }`}>
+                <span className="font-mono text-sm text-ink-tertiary">$</span>
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  placeholder="Other amount"
+                  value={custom}
+                  onChange={(e) => {
+                    const raw = e.target.value.replace(/[^0-9.]/g, "");
+                    setCustom(raw);
+                    const val = parseFloat(raw);
+                    if (val > 0 && val <= 500) setAmount(val);
+                  }}
+                  className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
+                />
               </div>
 
               <p className="mb-5 text-center text-[13px] text-ink-secondary">
