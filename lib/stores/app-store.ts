@@ -84,6 +84,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         marketId,
         side,
         amount,
+        paidWith: "dollars",
         takenAt: new Date().toISOString(),
         currentValue: expectedValue,
       };
@@ -158,6 +159,7 @@ export const useAppStore = create<AppState>((set, get) => ({
         marketId,
         side,
         amount: amountUSD,
+        paidWith: cryptoId as Position["paidWith"],
         takenAt: new Date().toISOString(),
         currentValue: expectedValue,
       };

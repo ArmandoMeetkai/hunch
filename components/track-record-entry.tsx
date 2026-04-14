@@ -32,8 +32,13 @@ export function TrackRecordEntry({ position, question }: TrackRecordEntryProps) 
       <div>
         <p className="text-[15px] text-ink-primary">{question}</p>
         <p className="mt-0.5 text-[13px] text-ink-tertiary">
-          Backed {position.side === "yes" ? "Yes" : "No"} · ${position.amount} ·
-          resolved {resolvedDate}
+          Backed {position.side === "yes" ? "Yes" : "No"} · ${position.amount}
+          {position.paidWith !== "dollars" && (
+            <span className="ml-1">
+              via {position.paidWith === "btc" ? "₿ BTC" : "Ξ ETH"}
+            </span>
+          )}
+          {" "}· resolved {resolvedDate}
         </p>
       </div>
 

@@ -92,15 +92,22 @@ export default function PortfolioPage() {
                   </p>
                 </div>
                 <div className="flex items-center justify-between">
-                  <span
-                    className={`rounded px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] ${
-                      pos.side === "yes"
-                        ? "bg-bg-sunken text-accent-signal"
-                        : "bg-bg-sunken text-accent-cool"
-                    }`}
-                  >
-                    {pos.side} · ${pos.amount}
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <span
+                      className={`rounded px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] ${
+                        pos.side === "yes"
+                          ? "bg-bg-sunken text-accent-signal"
+                          : "bg-bg-sunken text-accent-cool"
+                      }`}
+                    >
+                      {pos.side} · ${pos.amount}
+                    </span>
+                    {pos.paidWith !== "dollars" && (
+                      <span className="rounded px-1.5 py-0.5 bg-accent-highlight/40 font-mono text-[10px] uppercase tracking-[0.08em] text-accent-ink">
+                        {pos.paidWith === "btc" ? "₿" : "Ξ"} {pos.paidWith.toUpperCase()}
+                      </span>
+                    )}
+                  </div>
                   <span className={`font-mono text-sm ${pnlColor}`}>
                     {pnlStr}
                   </span>

@@ -35,10 +35,13 @@ export type Market = {
   resolvesAt: string;
 };
 
+export type PaymentMethod = "dollars" | "btc" | "eth";
+
 export type Position = {
   marketId: string;
   side: Side;
   amount: number;
+  paidWith: PaymentMethod;
   takenAt: string;
   currentValue: number;
 };
