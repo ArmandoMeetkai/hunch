@@ -99,24 +99,38 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
                 ))}
               </div>
 
-              <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-2.5 ${
-                custom !== "" ? "border-accent-ink bg-accent-highlight/30" : "border-border-soft bg-bg-sunken"
-              }`}>
-                <span className="font-mono text-sm text-ink-tertiary">$</span>
-                <input
-                  type="text"
-                  inputMode="decimal"
-                  placeholder="Other amount"
-                  value={custom}
-                  onChange={(e) => {
-                    const raw = e.target.value.replace(/[^0-9.]/g, "");
-                    setCustom(raw);
-                    const val = parseFloat(raw);
-                    if (val > 0 && val <= 500) setAmount(val);
-                  }}
-                  className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
-                />
-              </div>
+              {(() => {
+                const customVal = parseFloat(custom);
+                const isOverLimit = custom !== "" && customVal > 500;
+                return (
+                  <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-2.5 ${
+                    isOverLimit
+                      ? "border-accent-signal bg-accent-signal/5"
+                      : custom !== ""
+                        ? "border-accent-ink bg-accent-highlight/30"
+                        : "border-border-soft bg-bg-sunken"
+                  }`}>
+                    <span className="font-mono text-sm text-ink-tertiary">$</span>
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      placeholder="Other amount"
+                      maxLength={6}
+                      value={custom}
+                      onChange={(e) => {
+                        const raw = e.target.value.replace(/[^0-9.]/g, "").slice(0, 6);
+                        setCustom(raw);
+                        const val = parseFloat(raw);
+                        if (val > 0 && val <= 500) setAmount(val);
+                      }}
+                      className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
+                    />
+                    {isOverLimit && (
+                      <span className="shrink-0 text-[11px] text-accent-signal">Max $500</span>
+                    )}
+                  </div>
+                );
+              })()}
 
               <p className="mb-5 text-center text-[13px] text-ink-secondary">
                 You&apos;ll get ~{quantity.toFixed(6)} {asset.symbol}
