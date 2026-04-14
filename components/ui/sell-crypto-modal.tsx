@@ -64,9 +64,10 @@ export function SellCryptoModal({ isOpen, onClose, asset, holding }: SellCryptoM
             animate={{ opacity: 1, scale: 1 }}
             exit={reducedMotion ? { opacity: 0 } : { opacity: 0, scale: 0.95 }}
             transition={reducedMotion ? { duration: 0.05 } : { type: "spring", stiffness: 260, damping: 28 }}
-            onClick={(e) => e.stopPropagation()}
+            onClick={onClose}
           >
-            <div className="w-full max-w-[400px] rounded-[var(--radius-modal)] border border-border-soft bg-bg-surface p-8 shadow-[0_8px_24px_-8px_rgba(28,26,23,0.12)]">
+            <div className="relative w-full max-w-[400px] rounded-[var(--radius-modal)] border border-border-soft bg-bg-surface p-8 shadow-[0_8px_24px_-8px_rgba(28,26,23,0.12)]" onClick={(e) => e.stopPropagation()}>
+              <button onClick={onClose} className="absolute right-4 top-4 cursor-pointer text-ink-tertiary transition-colors hover:text-ink-primary" aria-label="Close">✕</button>
               <div className="mb-6 text-center">
                 <span className="font-serif text-5xl text-ink-tertiary">
                   {CRYPTO_GLYPHS[asset.id]}

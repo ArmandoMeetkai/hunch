@@ -47,7 +47,7 @@ export function LessonOverlay({ lesson, isOpen, onClose }: LessonOverlayProps) {
             role="dialog"
             aria-modal="true"
             aria-label={lesson.title}
-            className="fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[85vh] w-full max-w-[600px] overflow-y-auto rounded-t-[var(--radius-modal)] bg-bg-surface p-8 md:inset-y-0 md:flex md:items-center md:rounded-[var(--radius-modal)] md:p-12"
+            className="relative fixed inset-x-0 bottom-0 z-50 mx-auto max-h-[85vh] w-full max-w-[600px] overflow-y-auto rounded-t-[var(--radius-modal)] bg-bg-surface p-8 md:inset-y-0 md:flex md:items-center md:rounded-[var(--radius-modal)] md:p-12"
             initial={
               reducedMotion
                 ? { opacity: 0 }
@@ -66,6 +66,7 @@ export function LessonOverlay({ lesson, isOpen, onClose }: LessonOverlayProps) {
             }
           >
             <div className="w-full">
+              <button onClick={onClose} className="absolute right-4 top-4 cursor-pointer text-ink-tertiary transition-colors hover:text-ink-primary md:right-6 md:top-6" aria-label="Close">✕</button>
               <span className="font-serif text-6xl italic text-border-firm">
                 {lesson.romanNumeral}
               </span>
