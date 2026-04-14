@@ -33,11 +33,11 @@ export function LessonCard({
         {lesson.romanNumeral}
       </span>
 
-      <h3 className="mt-10 mb-2 pr-12 font-serif text-[26px] leading-[1.15] text-ink-primary">
+      <h3 className="mt-10 mb-2 pr-12 font-serif text-[26px] leading-[1.15] text-ink-primary line-clamp-2">
         {lesson.title}
       </h3>
 
-      <p className="mb-5 text-sm leading-relaxed text-ink-secondary">
+      <p className="mb-5 text-sm leading-relaxed text-ink-secondary line-clamp-2">
         {lesson.subtitle}
       </p>
 

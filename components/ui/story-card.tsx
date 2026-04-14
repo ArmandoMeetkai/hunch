@@ -38,7 +38,7 @@ export function StoryCard({ story, market }: StoryCardProps) {
       </div>
 
       <Link href={`/story/${story.id}`} className="group block">
-        <h2 className="mb-3 font-serif text-[32px] leading-[1.1] tracking-[-0.01em] text-ink-primary transition-colors group-hover:text-accent-ink">
+        <h2 className="mb-3 font-serif text-[32px] leading-[1.1] tracking-[-0.01em] text-ink-primary transition-colors group-hover:text-accent-ink line-clamp-3">
           {renderTitle(story.title)}
         </h2>
       </Link>

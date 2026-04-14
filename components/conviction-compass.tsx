@@ -131,7 +131,7 @@ export function ConvictionCompass() {
               className="inline-block h-2 w-2 rounded-full"
               style={{ backgroundColor: s.fill, opacity: s.opacity }}
             />
-            <span className="text-[10px] font-medium uppercase tracking-[0.08em] text-ink-tertiary">
+            <span className="truncate text-[10px] font-medium uppercase tracking-[0.08em] text-ink-tertiary">
               {s.topic}
             </span>
           </div>

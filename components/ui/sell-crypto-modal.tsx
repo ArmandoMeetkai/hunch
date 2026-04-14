@@ -210,7 +210,7 @@ export function SellCryptoModal({ isOpen, onClose, asset, holding }: SellCryptoM
                   <button
                     onClick={handleSell}
                     disabled={sellValueUSD <= 0}
-                    className="w-full cursor-pointer rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full cursor-pointer truncate rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     Sell ${sellValueUSD.toFixed(2)} of {asset.name}
                   </button>

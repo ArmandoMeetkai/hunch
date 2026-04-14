@@ -43,7 +43,7 @@ export function CryptoCard({ asset, holding }: CryptoCardProps) {
                 </span>
               </div>
               <div>
-                <h3 className="font-serif text-lg text-ink-primary">{asset.name}</h3>
+                <h3 className="truncate font-serif text-lg text-ink-primary">{asset.name}</h3>
                 <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-ink-tertiary">{asset.symbol}</p>
               </div>
             </div>
@@ -99,7 +99,7 @@ export function CryptoCard({ asset, holding }: CryptoCardProps) {
         <div className="flex border-t border-border-soft">
           <button
             onClick={() => setShowBuy(true)}
-            className={`flex-1 cursor-pointer py-3.5 text-center text-sm font-medium text-bg-canvas bg-accent-ink transition-colors hover:opacity-90 ${holding ? "rounded-bl-2xl" : "rounded-b-2xl"}`}
+            className={`flex-1 cursor-pointer truncate py-3.5 text-center text-sm font-medium text-bg-canvas bg-accent-ink transition-colors hover:opacity-90 ${holding ? "rounded-bl-2xl" : "rounded-b-2xl"}`}
           >
             Buy {asset.name}
           </button>

@@ -153,7 +153,7 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
               <button
                 onClick={handleBuy}
                 disabled={!canAfford || amount <= 0 || (custom !== "" && (parseFloat(custom) > 500 || parseFloat(custom) <= 0 || isNaN(parseFloat(custom))))}
-                className="mb-4 w-full cursor-pointer rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mb-4 w-full cursor-pointer truncate rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Buy ${amount} of {asset.name}
               </button>

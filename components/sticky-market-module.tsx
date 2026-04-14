@@ -88,7 +88,7 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
           The Hunch
         </EditorialOverline>
 
-        <h3 className="mb-5 font-serif text-[22px] leading-[1.2] text-ink-primary">
+        <h3 className="mb-5 font-serif text-[22px] leading-[1.2] text-ink-primary line-clamp-3">
           {market.question}
         </h3>
 

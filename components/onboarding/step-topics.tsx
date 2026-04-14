@@ -45,14 +45,14 @@ export function StepTopics({ onContinue }: StepTopicsProps) {
         Pick at least three topics. You can change these later.
       </p>
 
-      <div className="mx-auto mt-10 grid max-w-[480px] grid-cols-3 gap-3">
+      <div className="mx-auto mt-10 grid max-w-[480px] grid-cols-2 gap-3 sm:grid-cols-3">
         {ALL_TOPICS.map(({ label, value }) => {
           const isSelected = selected.includes(value);
           return (
             <button
               key={value}
               onClick={() => toggle(value)}
-              className={`cursor-pointer rounded-[var(--radius-card)] border px-5 py-3.5 font-serif text-lg italic transition-all duration-150 ${
+              className={`cursor-pointer truncate rounded-[var(--radius-card)] border px-4 py-3.5 font-serif text-base italic transition-all duration-150 sm:px-5 sm:text-lg ${
                 isSelected
                   ? "border-accent-ink bg-accent-highlight text-accent-ink"
                   : "border-border-soft bg-bg-surface text-ink-primary hover:border-border-firm"

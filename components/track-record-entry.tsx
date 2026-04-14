@@ -30,8 +30,8 @@ export function TrackRecordEntry({ position, question }: TrackRecordEntryProps) 
       </div>
 
       <div>
-        <p className="text-[15px] text-ink-primary">{question}</p>
-        <p className="mt-0.5 text-[13px] text-ink-tertiary">
+        <p className="text-[15px] text-ink-primary line-clamp-2">{question}</p>
+        <p className="mt-0.5 truncate text-[13px] text-ink-tertiary">
           Backed {position.side === "yes" ? "Yes" : "No"} · ${position.amount}
           {position.paidWith !== "dollars" && (
             <span className="ml-1">

@@ -95,11 +95,11 @@ export function NotificationsDropdown() {
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="text-[14px] leading-snug text-ink-primary">
+                      <p className="text-[14px] leading-snug text-ink-primary line-clamp-2">
                         {n.message}
                       </p>
                       {n.detail && (
-                        <p className="mt-1 font-mono text-[12px] font-light tracking-[-0.02em] text-ink-secondary">
+                        <p className="mt-1 truncate font-mono text-[12px] font-light tracking-[-0.02em] text-ink-secondary">
                           {n.detail}
                         </p>
                       )}

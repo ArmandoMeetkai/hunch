@@ -54,7 +54,7 @@ export function NavBar() {
                   className={active ? "text-accent-ink" : "text-ink-tertiary"}
                 />
                 <span
-                  className={`text-[10px] font-medium ${
+                  className={`max-w-full truncate text-[10px] font-medium ${
                     active ? "text-accent-ink" : "text-ink-tertiary"
                   }`}
                 >
@@ -111,7 +111,7 @@ export function NavBar() {
                   className={active ? "text-accent-ink" : "text-ink-tertiary group-hover:text-ink-secondary"}
                 />
                 <span
-                  className={`text-[9px] font-medium ${
+                  className={`max-w-full truncate text-[9px] font-medium ${
                     active ? "text-accent-ink" : "text-ink-tertiary"
                   }`}
                 >
