@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import type { AppNotification, CryptoAsset, CryptoHolding, Market, Position, Side, Topic, User } from "@/types";
+import type { AppNotification, CryptoAsset, CryptoHolding, Market, Position, ResolvedPosition, Side, Topic, User } from "@/types";
 import { stories, markets as initialMarkets, initialUser, lessons } from "@/lib/mock-data";
 import { initialCryptoAssets } from "@/lib/mock-crypto";
 import { clampProbability } from "@/lib/price-utils";
@@ -56,6 +56,7 @@ type AppState = {
   markAllNotificationsRead: () => void;
   addFunds: (amount: number) => void;
   placeBetWithCrypto: (marketId: string, side: Side, amountUSD: number, cryptoId: string) => void;
+  resolveOldPositions: () => void;
   buyCrypto: (assetId: string, amountUSD: number) => void;
   sellCrypto: (assetId: string, amountUSD: number) => void;
   updateCryptoPrices: () => void;
@@ -198,6 +199,80 @@ export const useAppStore = create<AppState>((set, get) => ({
           },
           ...state.notifications,
         ],
+      };
+    });
+  },
+
+  resolveOldPositions: () => {
+    set((state) => {
+      const now = Date.now();
+      const RESOLVE_AFTER_MS = 60_000; // 60 seconds
+
+      const toResolve: Position[] = [];
+      const remaining: Position[] = [];
+
+      for (const pos of state.user.positions) {
+        const age = now - new Date(pos.takenAt).getTime();
+        if (age >= RESOLVE_AFTER_MS) {
+          toResolve.push(pos);
+        } else {
+          remaining.push(pos);
+        }
+      }
+
+      if (toResolve.length === 0) return state;
+
+      const newResolved: ResolvedPosition[] = toResolve.map((pos) => {
+        const market = state.markets.find((m) => m.id === pos.marketId);
+        const prob = market?.probabilityYes ?? 0.5;
+        // Resolve based on current probability: if prob > 0.5, "yes" wins more often
+        const outcome = Math.random() < prob;
+        const userCorrect =
+          (pos.side === "yes" && outcome) || (pos.side === "no" && !outcome);
+        const payout = userCorrect ? pos.currentValue : 0;
+
+        return {
+          ...pos,
+          resolvedAt: new Date().toISOString(),
+          correct: userCorrect,
+          payout,
+        };
+      });
+
+      // Update accuracy rate
+      const allResolved = [...state.user.resolvedPositions, ...newResolved];
+      const correctCount = allResolved.filter((r) => r.correct).length;
+      const newAccuracy = allResolved.length > 0 ? correctCount / allResolved.length : 0;
+
+      // Add balance back for winning bets
+      const totalPayout = newResolved.reduce((sum, r) => sum + r.payout, 0);
+
+      // Generate notifications
+      const newNotifications: AppNotification[] = newResolved.map((r) => {
+        const market = state.markets.find((m) => m.id === r.marketId);
+        const question = market?.question ?? r.marketId;
+        return {
+          id: `n-resolve-${r.marketId}-${Date.now()}`,
+          message: r.correct
+            ? `Your hunch resolved: ${question}`
+            : `You were wrong: ${question}`,
+          detail: r.correct
+            ? `You backed ${r.side === "yes" ? "Yes" : "No"} · $${r.amount} → +$${(r.payout - r.amount).toFixed(2)}`
+            : `You backed ${r.side === "yes" ? "Yes" : "No"} · $${r.amount} → −$${r.amount.toFixed(2)}`,
+          timestamp: new Date().toISOString(),
+          read: false,
+        };
+      });
+
+      return {
+        user: {
+          ...state.user,
+          positions: remaining,
+          resolvedPositions: [...state.user.resolvedPositions, ...newResolved],
+          practiceBalance: Math.round((state.user.practiceBalance + totalPayout) * 100) / 100,
+          accuracyRate: Math.round(newAccuracy * 100) / 100,
+        },
+        notifications: [...newNotifications, ...state.notifications],
       };
     });
   },

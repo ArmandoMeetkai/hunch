@@ -7,6 +7,7 @@ import { EditorialOverline } from "@/components/ui/editorial-overline";
 
 export default function TrackRecordPage() {
   const user = useAppStore((s) => s.user);
+  const markets = useAppStore((s) => s.markets);
 
   // Group resolved positions by month
   const grouped = user.resolvedPositions.reduce<
@@ -55,7 +56,7 @@ export default function TrackRecordPage() {
             <TrackRecordEntry
               key={pos.marketId + pos.resolvedAt}
               position={pos}
-              question={resolvedMarketQuestions[pos.marketId] ?? pos.marketId}
+              question={resolvedMarketQuestions[pos.marketId] ?? markets.find((m) => m.id === pos.marketId)?.question ?? pos.marketId}
             />
           ))}
         </div>
