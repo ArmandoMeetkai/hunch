@@ -788,12 +788,13 @@ export const initialUser: User = {
   name: "Armando",
   practiceBalance: 10.0,
   positions: [
+    // Wave 1: resolves early (~10-25s) to show the mechanic
     {
       marketId: "m1",
       side: "yes",
       amount: 1,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 50_000).toISOString(), // resolves ~10s after app start
+      takenAt: new Date(NOW_MS - 50_000).toISOString(),
       currentValue: 1.18,
     },
     {
@@ -801,15 +802,16 @@ export const initialUser: User = {
       side: "yes",
       amount: 5,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 35_000).toISOString(), // resolves ~25s after app start
+      takenAt: new Date(NOW_MS - 38_000).toISOString(),
       currentValue: 7.12,
     },
+    // Wave 2: resolves mid-session (~40-55s)
     {
       marketId: "m2",
       side: "no",
       amount: 1,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 20_000).toISOString(), // resolves ~40s after app start
+      takenAt: new Date(NOW_MS - 20_000).toISOString(),
       currentValue: 1.04,
     },
     {
@@ -817,8 +819,41 @@ export const initialUser: User = {
       side: "no",
       amount: 1,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 5_000).toISOString(),  // resolves ~55s after app start
+      takenAt: new Date(NOW_MS - 8_000).toISOString(),
       currentValue: 0.91,
+    },
+    // Wave 3: stays longer (~90-120s) so portfolio isn't empty
+    {
+      marketId: "m5",
+      side: "yes",
+      amount: 2,
+      paidWith: "dollars",
+      takenAt: new Date(NOW_MS + 30_000).toISOString(), // resolves ~90s after app start
+      currentValue: 2.78,
+    },
+    {
+      marketId: "m10",
+      side: "yes",
+      amount: 1,
+      paidWith: "dollars",
+      takenAt: new Date(NOW_MS + 45_000).toISOString(), // resolves ~105s after app start
+      currentValue: 1.22,
+    },
+    {
+      marketId: "m21",
+      side: "yes",
+      amount: 5,
+      paidWith: "btc",
+      takenAt: new Date(NOW_MS + 60_000).toISOString(), // resolves ~120s after app start
+      currentValue: 7.04,
+    },
+    {
+      marketId: "m22",
+      side: "no",
+      amount: 1,
+      paidWith: "eth",
+      takenAt: new Date(NOW_MS + 80_000).toISOString(), // resolves ~140s after app start
+      currentValue: 1.56,
     },
   ],
   resolvedPositions,

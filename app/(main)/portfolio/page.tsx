@@ -11,7 +11,8 @@ export default function PortfolioPage() {
   const markets = useLivePrice();
   const stories = useAppStore((s) => s.stories);
 
-  const totalValue = user.positions.reduce((sum, p) => sum + p.currentValue, 0);
+  const positionsValue = user.positions.reduce((sum, p) => sum + p.currentValue, 0);
+  const totalValue = user.practiceBalance + positionsValue;
   const positionCount = user.positions.length;
 
   return (
@@ -34,9 +35,15 @@ export default function PortfolioPage() {
               <p className="font-mono text-[56px] font-light leading-none tracking-[-0.03em] text-ink-primary">
                 ${totalValue.toFixed(2)}
               </p>
-              <p className="mt-2 text-[13px] text-accent-signal">
-                ↗ +${(totalValue - 10).toFixed(2)} from practice
-              </p>
+              {(() => {
+                const pnl = totalValue - 10;
+                const isUp = pnl >= 0;
+                return (
+                  <p className={`mt-2 text-[13px] ${isUp ? "text-accent-signal" : "text-accent-cool"}`}>
+                    {isUp ? "↗" : "↘"} {isUp ? "+" : ""}${pnl.toFixed(2)} from practice
+                  </p>
+                );
+              })()}
             </div>
             <EditorialOverline>
               {positionCount} active positions · {Math.round(user.accuracyRate * 100)}% right
