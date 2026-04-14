@@ -7,8 +7,10 @@ import { StoryCard } from "@/components/ui/story-card";
 
 export default function FeedPage() {
   const stories = useAppStore((s) => s.stories);
+  const selectedTopics = useAppStore((s) => s.user.selectedTopics);
   const markets = useLivePrice();
   const feedStories = [...stories]
+    .filter((s) => selectedTopics.length === 0 || selectedTopics.includes(s.topic))
     .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
     .slice(0, 10);
 
