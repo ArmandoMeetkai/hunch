@@ -8,6 +8,7 @@ type PriceNumberProps = {
   value: number;
   size?: number;
   className?: string;
+  colorize?: boolean;
 };
 
 function formatPrice(value: number): string {
@@ -17,7 +18,7 @@ function formatPrice(value: number): string {
   return value.toFixed(2);
 }
 
-export function PriceNumber({ value, size = 28, className = "" }: PriceNumberProps) {
+export function PriceNumber({ value, size = 28, className = "", colorize = true }: PriceNumberProps) {
   const reducedMotion = useReducedMotion();
   const prevValue = useRef(value);
   const [direction, setDirection] = useState<"up" | "down" | "neutral">("neutral");
@@ -31,8 +32,9 @@ export function PriceNumber({ value, size = 28, className = "" }: PriceNumberPro
   const formatted = "$" + formatPrice(value);
   const chars = formatted.split("");
 
-  const colorClass =
-    direction === "up"
+  const colorClass = !colorize
+    ? "text-ink-primary"
+    : direction === "up"
       ? "text-accent-signal"
       : direction === "down"
         ? "text-accent-cool"

@@ -48,7 +48,7 @@ export function CryptoCard({ asset, holding }: CryptoCardProps) {
               </div>
             </div>
             <div className="text-right">
-              <PriceNumber value={asset.price} size={28} />
+              <PriceNumber value={asset.price} size={28} colorize={false} />
               <p className={`mt-1 font-mono text-[13px] ${changeColor}`}>
                 {isUp ? "↗" : "↘"} {isUp ? "+" : ""}{asset.change24h.toFixed(1)}% <span className="text-ink-tertiary">24h</span>
               </p>
