@@ -788,13 +788,13 @@ export const initialUser: User = {
   name: "Armando",
   practiceBalance: 10.0,
   positions: [
-    // Wave 1: resolves early (~10-25s) to show the mechanic
+    // Wave 1: resolves at ~2 min to show the mechanic
     {
       marketId: "m1",
       side: "yes",
       amount: 1,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 50_000).toISOString(),
+      takenAt: new Date(NOW_MS - 180_000).toISOString(), // resolves ~2 min after start
       currentValue: 1.18,
     },
     {
@@ -802,16 +802,16 @@ export const initialUser: User = {
       side: "yes",
       amount: 5,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 38_000).toISOString(),
+      takenAt: new Date(NOW_MS - 150_000).toISOString(), // resolves ~2.5 min
       currentValue: 7.12,
     },
-    // Wave 2: resolves mid-session (~40-55s)
+    // Wave 2: resolves at ~3-4 min
     {
       marketId: "m2",
       side: "no",
       amount: 1,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 20_000).toISOString(),
+      takenAt: new Date(NOW_MS - 120_000).toISOString(), // resolves ~3 min
       currentValue: 1.04,
     },
     {
@@ -819,16 +819,16 @@ export const initialUser: User = {
       side: "no",
       amount: 1,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS - 8_000).toISOString(),
+      takenAt: new Date(NOW_MS - 60_000).toISOString(), // resolves ~4 min
       currentValue: 0.91,
     },
-    // Wave 3: stays longer (~90-120s) so portfolio isn't empty
+    // Wave 3: resolves at ~5-7 min — stays visible for the full demo
     {
       marketId: "m5",
       side: "yes",
       amount: 2,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS + 30_000).toISOString(), // resolves ~90s after app start
+      takenAt: new Date(NOW_MS).toISOString(), // resolves ~5 min
       currentValue: 2.78,
     },
     {
@@ -836,7 +836,7 @@ export const initialUser: User = {
       side: "yes",
       amount: 1,
       paidWith: "dollars",
-      takenAt: new Date(NOW_MS + 45_000).toISOString(), // resolves ~105s after app start
+      takenAt: new Date(NOW_MS + 60_000).toISOString(), // resolves ~6 min
       currentValue: 1.22,
     },
     {
@@ -844,7 +844,7 @@ export const initialUser: User = {
       side: "yes",
       amount: 5,
       paidWith: "btc",
-      takenAt: new Date(NOW_MS + 60_000).toISOString(), // resolves ~120s after app start
+      takenAt: new Date(NOW_MS + 120_000).toISOString(), // resolves ~7 min
       currentValue: 7.04,
     },
     {
@@ -852,7 +852,7 @@ export const initialUser: User = {
       side: "no",
       amount: 1,
       paidWith: "eth",
-      takenAt: new Date(NOW_MS + 80_000).toISOString(), // resolves ~140s after app start
+      takenAt: new Date(NOW_MS + 180_000).toISOString(), // resolves ~8 min
       currentValue: 1.56,
     },
   ],

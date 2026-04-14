@@ -206,7 +206,7 @@ export const useAppStore = create<AppState>((set, get) => ({
   resolveOldPositions: () => {
     set((state) => {
       const now = Date.now();
-      const RESOLVE_AFTER_MS = 60_000; // 60 seconds
+      const RESOLVE_AFTER_MS = 300_000; // 5 minutes
 
       const toResolve: Position[] = [];
       const remaining: Position[] = [];
