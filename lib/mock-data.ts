@@ -880,3 +880,19 @@ export const initialUser: User = {
   // anyone who wants to see the full flow.
   onboardingComplete: true,
 };
+
+// Fresh-user state — what a brand-new visitor would see. Used by
+// resetDemo() in the store so "Reset" feels like starting over from zero:
+// empty portfolio, $10 welcome bonus, and onboardingComplete: false so the
+// OnboardingGuard sends them through the intro again.
+export const freshUser: User = {
+  name: "Armando",
+  practiceBalance: 10.0,
+  positions: [],
+  resolvedPositions: [],
+  predictionsCompleted: 0,
+  accuracyRate: 0,
+  unlockedLessons: [1, 2, 3], // those with unlockAfterPredictions: 0
+  selectedTopics: [],
+  onboardingComplete: false,
+};

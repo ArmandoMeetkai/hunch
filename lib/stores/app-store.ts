@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import type { AppNotification, CryptoAsset, CryptoHolding, Market, Position, ResolvedPosition, Side, Topic, User } from "@/types";
-import { stories as baseStories, markets as baseMarkets, initialUser, lessons } from "@/lib/mock-data";
+import { stories as baseStories, markets as baseMarkets, initialUser, freshUser, lessons } from "@/lib/mock-data";
 import { extraStories, extraMarkets } from "@/lib/mock-stories-extra";
 import { initialCryptoAssets } from "@/lib/mock-crypto";
 
@@ -470,9 +470,22 @@ export const useAppStore = create<AppState>()(
   },
 
   resetDemo: () => {
+    // Reset represents "start over as a new user" — not "return to the
+    // seeded demo state". Fresh user has $10 welcome bonus, zero positions,
+    // and onboardingComplete: false so the guard will redirect to the
+    // intro on the next render. Only notification is the welcome message,
+    // which reinforces the onboarding promise in the bell dropdown.
     set({
-      user: initialUser,
-      notifications: initialNotifications,
+      user: freshUser,
+      notifications: [
+        {
+          id: `n-welcome-${Date.now()}`,
+          message: "Welcome to Hunch",
+          detail: "You have $10 of practice money to start exploring.",
+          timestamp: new Date().toISOString(),
+          read: false,
+        },
+      ],
       cryptoHoldings: [],
     });
   },
