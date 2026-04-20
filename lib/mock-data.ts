@@ -786,7 +786,7 @@ const NOW_MS = Date.now();
 
 export const initialUser: User = {
   name: "Armando",
-  practiceBalance: 10.0,
+  practiceBalance: 2.0,
   positions: [
     // Wave 1: resolves at ~2 min to show the mechanic
     {
@@ -795,15 +795,15 @@ export const initialUser: User = {
       amount: 1,
       paidWith: "dollars",
       takenAt: new Date(NOW_MS - 180_000).toISOString(), // resolves ~2 min after start
-      currentValue: 1.18,
+      currentValue: 1.15,
     },
     {
       marketId: "m3",
       side: "yes",
-      amount: 5,
+      amount: 1,
       paidWith: "dollars",
       takenAt: new Date(NOW_MS - 150_000).toISOString(), // resolves ~2.5 min
-      currentValue: 7.12,
+      currentValue: 1.28,
     },
     // Wave 2: resolves at ~3-4 min
     {
@@ -812,7 +812,7 @@ export const initialUser: User = {
       amount: 1,
       paidWith: "dollars",
       takenAt: new Date(NOW_MS - 120_000).toISOString(), // resolves ~3 min
-      currentValue: 1.04,
+      currentValue: 0.98,
     },
     {
       marketId: "m4",
@@ -820,16 +820,16 @@ export const initialUser: User = {
       amount: 1,
       paidWith: "dollars",
       takenAt: new Date(NOW_MS - 60_000).toISOString(), // resolves ~4 min
-      currentValue: 0.91,
+      currentValue: 1.10,
     },
     // Wave 3: resolves at ~5-7 min — stays visible for the full demo
     {
       marketId: "m5",
       side: "yes",
-      amount: 2,
+      amount: 1,
       paidWith: "dollars",
       takenAt: new Date(NOW_MS).toISOString(), // resolves ~5 min
-      currentValue: 2.78,
+      currentValue: 1.22,
     },
     {
       marketId: "m10",
@@ -837,15 +837,15 @@ export const initialUser: User = {
       amount: 1,
       paidWith: "dollars",
       takenAt: new Date(NOW_MS + 60_000).toISOString(), // resolves ~6 min
-      currentValue: 1.22,
+      currentValue: 1.32,
     },
     {
       marketId: "m21",
       side: "yes",
-      amount: 5,
+      amount: 1,
       paidWith: "btc",
       takenAt: new Date(NOW_MS + 120_000).toISOString(), // resolves ~7 min
-      currentValue: 7.04,
+      currentValue: 1.18,
     },
     {
       marketId: "m22",
@@ -853,7 +853,7 @@ export const initialUser: User = {
       amount: 1,
       paidWith: "eth",
       takenAt: new Date(NOW_MS + 180_000).toISOString(), // resolves ~8 min
-      currentValue: 1.56,
+      currentValue: 0.97,
     },
   ],
   resolvedPositions,
