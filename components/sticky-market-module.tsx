@@ -113,14 +113,34 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
 
         <PillToggle value={side} onChange={setSide} layoutId="market-module-toggle" />
 
-        {/* Reserves option — hidden by default, revealed via link */}
+        {/* Reserves option — collapsed by default. Shows available BTC/ETH
+           value inline so users don't have to click to discover whether they
+           have reserves to spend. */}
         {hasCrypto && !showReserves && (
-          <button
-            onClick={() => setShowReserves(true)}
-            className="mt-3 w-full cursor-pointer text-center font-serif text-[13px] italic text-ink-tertiary transition-colors hover:text-ink-secondary"
-          >
-            Use your reserves instead →
-          </button>
+          <div className="mt-3 text-center">
+            <button
+              onClick={() => setShowReserves(true)}
+              className="cursor-pointer font-serif text-[13px] italic text-ink-tertiary transition-colors hover:text-ink-secondary"
+            >
+              Use your reserves instead →
+            </button>
+            <p className="mt-0.5 font-mono text-[11px] text-ink-tertiary">
+              {btcValueUSD > 0.01 && (
+                <>
+                  {CRYPTO_GLYPHS.btc} ${btcValueUSD.toFixed(0)}
+                </>
+              )}
+              {btcValueUSD > 0.01 && ethValueUSD > 0.01 && (
+                <span className="text-ink-tertiary/60"> · </span>
+              )}
+              {ethValueUSD > 0.01 && (
+                <>
+                  {CRYPTO_GLYPHS.eth} ${ethValueUSD.toFixed(0)}
+                </>
+              )}{" "}
+              available
+            </p>
+          </div>
         )}
         {hasCrypto && showReserves && (
           <div className="mt-4">
