@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import type { AppNotification, CryptoAsset, CryptoHolding, Market, Position, ResolvedPosition, Side, Topic, User } from "@/types";
 import { stories as baseStories, markets as baseMarkets, initialUser, lessons } from "@/lib/mock-data";
 import { extraStories, extraMarkets } from "@/lib/mock-stories-extra";
@@ -67,9 +68,12 @@ type AppState = {
   buyCrypto: (assetId: string, amountUSD: number) => void;
   sellCrypto: (assetId: string, amountUSD: number) => void;
   updateCryptoPrices: () => void;
+  resetDemo: () => void;
 };
 
-export const useAppStore = create<AppState>((set, get) => ({
+export const useAppStore = create<AppState>()(
+  persist(
+    (set, get) => ({
   user: initialUser,
   markets: initialMarkets,
   cryptoAssets: initialCryptoAssets,
@@ -464,4 +468,28 @@ export const useAppStore = create<AppState>((set, get) => ({
       }),
     }));
   },
-}));
+
+  resetDemo: () => {
+    set({
+      user: initialUser,
+      notifications: initialNotifications,
+      cryptoHoldings: [],
+    });
+  },
+    }),
+    {
+      name: "hunch-demo-state",
+      storage: createJSONStorage(() => localStorage),
+      // Only persist what the user accumulates. Markets and cryptoAssets
+      // keep drifting via updatePrices / updateCryptoPrices, and persisting
+      // them would both bloat storage and freeze the simulation at reload
+      // time. stories / lessons are static mock data.
+      partialize: (state) => ({
+        user: state.user,
+        notifications: state.notifications,
+        cryptoHoldings: state.cryptoHoldings,
+      }),
+      version: 1,
+    },
+  ),
+);

@@ -6,10 +6,21 @@ import { EditorialOverline } from "@/components/ui/editorial-overline";
 
 export default function SettingsPage() {
   const user = useAppStore((s) => s.user);
+  const resetDemo = useAppStore((s) => s.resetDemo);
   const [notifications, setNotifications] = useState(true);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [resetConfirm, setResetConfirm] = useState(false);
 
   const predictionsToGo = Math.max(0, 10 - user.predictionsCompleted);
+
+  const handleReset = () => {
+    if (!resetConfirm) {
+      setResetConfirm(true);
+      return;
+    }
+    resetDemo();
+    window.location.reload();
+  };
 
   return (
     <div className="mx-auto max-w-[600px] px-6 py-10">
@@ -99,6 +110,33 @@ export default function SettingsPage() {
             </p>
           </div>
         )}
+      </section>
+
+      {/* Demo controls — only meaningful while this is a frontend-only demo */}
+      <section className="mb-6 overflow-hidden rounded-2xl border border-border-soft bg-bg-surface">
+        <div className="px-6 py-5">
+          <EditorialOverline>Demo</EditorialOverline>
+          <div className="mt-3 flex items-start justify-between gap-4">
+            <div>
+              <p className="text-[15px] text-ink-primary">Reset demo state</p>
+              <p className="mt-0.5 text-[13px] text-ink-tertiary">
+                Clear your positions, holdings, balance, and notifications.
+                Returns the app to the seeded first-load state.
+              </p>
+            </div>
+            <button
+              onClick={handleReset}
+              onBlur={() => setResetConfirm(false)}
+              className={`shrink-0 cursor-pointer rounded-[var(--radius-pill)] border px-4 py-2.5 text-[13px] font-medium transition-colors ${
+                resetConfirm
+                  ? "border-accent-signal bg-accent-signal/5 text-accent-signal"
+                  : "border-border-firm text-ink-secondary hover:border-accent-ink hover:text-accent-ink"
+              }`}
+            >
+              {resetConfirm ? "Confirm reset" : "Reset →"}
+            </button>
+          </div>
+        </div>
       </section>
 
       <p className="mt-10 text-center font-serif text-[17px] italic text-ink-tertiary">
