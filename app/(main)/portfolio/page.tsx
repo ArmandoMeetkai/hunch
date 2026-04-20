@@ -20,7 +20,7 @@ export default function PortfolioPage() {
       <div className="mb-10">
         <EditorialOverline>Your portfolio</EditorialOverline>
         <h1 className="mt-3 font-serif text-5xl leading-[1.05] tracking-[-0.015em] text-ink-primary">
-          Your beliefs, <em className="italic">in one place.</em>
+          Your beliefs, <em className="italic">tracked.</em>
         </h1>
       </div>
 
@@ -46,7 +46,7 @@ export default function PortfolioPage() {
               })()}
             </div>
             <EditorialOverline>
-              {positionCount} active positions · {Math.round(user.accuracyRate * 100)}% right
+              {positionCount} active positions · {Math.round(user.accuracyRate * 100)}% right since you started
             </EditorialOverline>
           </div>
 
