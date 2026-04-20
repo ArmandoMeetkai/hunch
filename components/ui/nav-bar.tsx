@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import {
   Newspaper,
   Briefcase,
+  Coins,
   Target,
   BookOpen,
   Settings,
@@ -14,6 +15,7 @@ import { motion } from "framer-motion";
 const NAV_ITEMS = [
   { href: "/", label: "Feed", icon: Newspaper },
   { href: "/portfolio", label: "Portfolio", icon: Briefcase },
+  { href: "/crypto", label: "Crypto", icon: Coins },
   { href: "/track-record", label: "Track", icon: Target },
   { href: "/learn", label: "Learn", icon: BookOpen },
   { href: "/settings", label: "Settings", icon: Settings },
