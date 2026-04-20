@@ -28,16 +28,16 @@ export function LessonCard({
       onKeyDown={isUnlocked ? (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); onClick(); } } : undefined}
       aria-label={isUnlocked ? `Read lesson: ${lesson.title}` : `Locked lesson: ${lesson.title}`}
     >
-      {/* Decorative roman numeral */}
-      <span className="absolute right-6 top-4 font-serif text-7xl italic leading-none text-border-firm">
+      {/* Decorative roman numeral — drop cap */}
+      <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 select-none font-serif text-[128px] leading-none text-border-firm/60">
         {lesson.romanNumeral}
       </span>
 
-      <h3 className="mt-10 mb-2 pr-12 font-serif text-[26px] leading-[1.15] text-ink-primary line-clamp-2">
+      <h3 className="mb-2 pr-20 font-serif text-[26px] leading-[1.15] text-ink-primary line-clamp-2">
         {lesson.title}
       </h3>
 
-      <p className="mb-5 text-sm leading-relaxed text-ink-secondary line-clamp-2">
+      <p className="mb-5 pr-20 text-sm leading-relaxed text-ink-secondary line-clamp-2">
         {lesson.subtitle}
       </p>
 
