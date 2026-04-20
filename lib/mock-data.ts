@@ -873,5 +873,10 @@ export const initialUser: User = {
   accuracyRate: 0.62,
   unlockedLessons: [1, 2, 3],
   selectedTopics: ["politics", "tech", "culture"],
-  onboardingComplete: false,
+  // Seed state represents a user who has been using the app for a few
+  // weeks — positions placed, lessons unlocked, accuracy accumulated.
+  // Matching that state with an "$10 to start" onboarding would contradict
+  // itself. Keep the onboarding reachable at /onboarding directly for
+  // anyone who wants to see the full flow.
+  onboardingComplete: true,
 };
