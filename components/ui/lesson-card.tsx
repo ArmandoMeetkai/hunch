@@ -18,7 +18,7 @@ export function LessonCard({
   return (
     <div
       onClick={isUnlocked ? onClick : undefined}
-      className={`relative overflow-hidden rounded-2xl border border-border-soft bg-bg-surface p-7 transition-all duration-150 ${
+      className={`relative overflow-hidden rounded-2xl border border-border-soft bg-bg-surface p-5 transition-all duration-150 ${
         isUnlocked
           ? "cursor-pointer hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)]"
           : "opacity-55 cursor-default"
@@ -29,7 +29,7 @@ export function LessonCard({
       aria-label={isUnlocked ? `Read lesson: ${lesson.title}` : `Locked lesson: ${lesson.title}`}
     >
       {/* Decorative roman numeral — drop cap */}
-      <span className="pointer-events-none absolute right-5 top-1/2 -translate-y-1/2 select-none font-serif text-[128px] leading-none text-border-firm/60">
+      <span className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 select-none font-serif text-[112px] leading-none text-border-firm/60">
         {lesson.romanNumeral}
       </span>
 
@@ -37,7 +37,7 @@ export function LessonCard({
         {lesson.title}
       </h3>
 
-      <p className="mb-5 pr-20 text-sm leading-relaxed text-ink-secondary line-clamp-2">
+      <p className="mb-4 pr-20 text-sm leading-relaxed text-ink-secondary line-clamp-2">
         {lesson.subtitle}
       </p>
 
