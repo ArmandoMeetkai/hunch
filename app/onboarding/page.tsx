@@ -45,7 +45,7 @@ export default function OnboardingPage() {
       };
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-x-hidden pt-20 md:pt-24">
       {/* Step dots */}
       <div className="absolute left-1/2 top-10 z-10 flex -translate-x-1/2 gap-1.5">
         {[1, 2, 3, 4].map((s) => (

@@ -2,12 +2,21 @@
 
 import { useState, useRef, useEffect } from "react";
 import type { Side } from "@/types";
-import { stories, markets } from "@/lib/mock-data";
+import { generatePriceHistory } from "@/lib/price-utils";
 import { EditorialOverline } from "@/components/ui/editorial-overline";
 import { ProbabilityNumber } from "@/components/ui/probability-number";
 import { Sparkline } from "@/components/ui/sparkline";
 import { PillToggle } from "@/components/ui/pill-toggle";
 import { AmountStepper } from "@/components/ui/amount-stepper";
+
+// Onboarding uses a standalone example so the teaching question stays
+// universally clear regardless of what the feed dataset currently holds.
+const ONBOARDING_EXAMPLE = {
+  topic: "climate",
+  question: "Will it rain in New York this weekend?",
+  probabilityYes: 0.63,
+  history: generatePriceHistory(0.63),
+};
 
 type StepPracticeProps = {
   onContinue: () => void;
@@ -24,10 +33,6 @@ export function StepPractice({ onContinue }: StepPracticeProps) {
       continueRef.current?.focus();
     }
   }, [hasInteracted]);
-
-  // Use the first story as the example
-  const story = stories[0];
-  const market = markets[0];
 
   const handleSideChange = (s: Side) => {
     setSide(s);
@@ -51,18 +56,22 @@ export function StepPractice({ onContinue }: StepPracticeProps) {
       {/* Practice card */}
       <div className="mx-auto w-full max-w-[420px] rounded-2xl border border-border-soft bg-bg-surface p-6 text-left">
         <EditorialOverline className="mb-2 block">
-          {story.topic.charAt(0).toUpperCase() + story.topic.slice(1)} ·
-          Practice
+          {ONBOARDING_EXAMPLE.topic.charAt(0).toUpperCase() +
+            ONBOARDING_EXAMPLE.topic.slice(1)}{" "}
+          · Practice
         </EditorialOverline>
 
         <h3 className="mb-3 font-serif text-xl leading-[1.2] text-ink-primary">
-          {market.question}
+          {ONBOARDING_EXAMPLE.question}
         </h3>
 
         <div className="mb-4 flex items-center gap-4">
-          <ProbabilityNumber value={market.probabilityYes} size={36} />
+          <ProbabilityNumber
+            value={ONBOARDING_EXAMPLE.probabilityYes}
+            size={36}
+          />
           <Sparkline
-            data={market.history}
+            data={ONBOARDING_EXAMPLE.history}
             width={120}
             height={32}
             color="var(--color-accent-signal)"
