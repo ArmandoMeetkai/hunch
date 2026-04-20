@@ -59,30 +59,32 @@ export default function TreasuryPage() {
                 </div>
               </div>
 
-              {/* Asset breakdown */}
-              <div className="mt-5 grid grid-cols-2 gap-3 border-t border-border-soft pt-5">
-                {cryptoHoldings.map((h) => {
-                  const asset = cryptoAssets.find((a) => a.id === h.assetId);
-                  if (!asset) return null;
-                  const value = h.quantity * asset.price;
-                  const pnl = value - h.quantity * h.avgBuyPrice;
-                  return (
-                    <div key={h.assetId} className="flex items-center gap-3 rounded-xl bg-bg-sunken p-3">
-                      <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-bg-canvas">
-                        <span className="font-serif text-lg text-accent-ink">
-                          {h.assetId === "btc" ? "₿" : "Ξ"}
-                        </span>
+              {/* Asset breakdown — only when multiple holdings, otherwise duplicate of the hero */}
+              {cryptoHoldings.length >= 2 && (
+                <div className="mt-5 grid grid-cols-2 gap-3 border-t border-border-soft pt-5">
+                  {cryptoHoldings.map((h) => {
+                    const asset = cryptoAssets.find((a) => a.id === h.assetId);
+                    if (!asset) return null;
+                    const value = h.quantity * asset.price;
+                    const pnl = value - h.quantity * h.avgBuyPrice;
+                    return (
+                      <div key={h.assetId} className="flex items-center gap-3 rounded-xl bg-bg-sunken p-3">
+                        <div className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-bg-canvas">
+                          <span className="font-serif text-lg text-accent-ink">
+                            {h.assetId === "btc" ? "₿" : "Ξ"}
+                          </span>
+                        </div>
+                        <div className="min-w-0">
+                          <p className="font-mono text-sm text-ink-primary">${value.toFixed(2)}</p>
+                          <p className={`font-mono text-[11px] ${pnl >= 0 ? "text-accent-signal" : "text-accent-cool"}`}>
+                            {pnl >= 0 ? "+" : ""}${pnl.toFixed(2)}
+                          </p>
+                        </div>
                       </div>
-                      <div className="min-w-0">
-                        <p className="font-mono text-sm text-ink-primary">${value.toFixed(2)}</p>
-                        <p className={`font-mono text-[11px] ${pnl >= 0 ? "text-accent-signal" : "text-accent-cool"}`}>
-                          {pnl >= 0 ? "+" : ""}${pnl.toFixed(2)}
-                        </p>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </>
           ) : (
             <div className="py-4 text-center">
