@@ -25,6 +25,7 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
   const [showModal, setShowModal] = useState(false);
   const [showAddFunds, setShowAddFunds] = useState(false);
   const [payWith, setPayWith] = useState<PaymentMethod>("dollars");
+  const [showReserves, setShowReserves] = useState(false);
   const placeBet = useAppStore((s) => s.placeBet);
   const placeBetWithCrypto = useAppStore((s) => s.placeBetWithCrypto);
   const balance = useAppStore((s) => s.user.practiceBalance);
@@ -112,8 +113,16 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
 
         <PillToggle value={side} onChange={setSide} layoutId="market-module-toggle" />
 
-        {/* Pay with selector */}
-        {hasCrypto && (
+        {/* Reserves option — hidden by default, revealed via link */}
+        {hasCrypto && !showReserves && (
+          <button
+            onClick={() => setShowReserves(true)}
+            className="mt-3 w-full cursor-pointer text-center font-serif text-[13px] italic text-ink-tertiary transition-colors hover:text-ink-secondary"
+          >
+            Use your reserves instead →
+          </button>
+        )}
+        {hasCrypto && showReserves && (
           <div className="mt-4">
             <EditorialOverline className="mb-2 block">Pay with</EditorialOverline>
             <div className="flex gap-1.5 rounded-[var(--radius-pill)] bg-bg-sunken p-1">

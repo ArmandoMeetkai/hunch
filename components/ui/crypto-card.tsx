@@ -90,7 +90,7 @@ export function CryptoCard({ asset, holding }: CryptoCardProps) {
         ) : (
           <div className="mx-6 mt-4 mb-6 rounded-xl border border-dashed border-border-soft p-4 text-center">
             <p className="font-serif text-[15px] italic text-ink-tertiary">
-              You don&apos;t own any {asset.name} yet.
+              No {asset.name} yet.
             </p>
           </div>
         )}

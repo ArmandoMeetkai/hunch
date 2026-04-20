@@ -5,7 +5,7 @@ import { useLiveCryptoPrice } from "@/hooks/use-live-crypto-price";
 import { EditorialOverline } from "@/components/ui/editorial-overline";
 import { CryptoCard } from "@/components/ui/crypto-card";
 
-export default function CryptoPage() {
+export default function TreasuryPage() {
   const cryptoAssets = useLiveCryptoPrice();
   const cryptoHoldings = useAppStore((s) => s.cryptoHoldings);
   const balance = useAppStore((s) => s.user.practiceBalance);
@@ -27,12 +27,12 @@ export default function CryptoPage() {
     <div className="mx-auto max-w-[680px] px-6 py-10">
       {/* Header */}
       <div className="mb-10">
-        <EditorialOverline>Practice portfolio</EditorialOverline>
+        <EditorialOverline>Treasury</EditorialOverline>
         <h1 className="mt-3 font-serif text-4xl leading-[1.05] tracking-[-0.015em] text-ink-primary sm:text-5xl">
-          Get to know <em className="italic">crypto.</em>
+          Two assets. <em className="italic">No ceremony.</em>
         </h1>
         <p className="mt-3 text-base text-ink-secondary sm:text-lg">
-          Buy and sell with practice money. No real funds, no risk.
+          Hold Bitcoin or Ether with practice money. The prices move with the real market; the risk is simulated.
         </p>
       </div>
 
@@ -44,7 +44,7 @@ export default function CryptoPage() {
               {/* Value + P&L */}
               <div className="flex items-end justify-between">
                 <div>
-                  <EditorialOverline>Crypto value</EditorialOverline>
+                  <EditorialOverline>Reserve value</EditorialOverline>
                   <p className="mt-2 font-mono text-4xl font-light tracking-[-0.03em] text-ink-primary sm:text-5xl">
                     ${totalCryptoValue.toFixed(2)}
                   </p>
