@@ -43,7 +43,7 @@ export default function FeedPage() {
                 onClick={() => setActiveFilter(topic)}
                 className={`shrink-0 cursor-pointer rounded-[var(--radius-pill)] px-4 py-2 text-[13px] font-medium transition-all duration-150 ${
                   isActive
-                    ? "bg-accent-ink text-bg-canvas"
+                    ? "bg-accent-highlight text-accent-ink"
                     : "border border-border-soft bg-bg-surface text-ink-secondary hover:border-border-firm"
                 }`}
               >
