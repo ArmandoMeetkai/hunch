@@ -2,6 +2,7 @@ import type {
   Story,
   Market,
   Lesson,
+  Topic,
   User,
   ResolvedPosition,
 } from "@/types";
@@ -776,6 +777,17 @@ export const resolvedMarketQuestions: Record<string, string> = {
   "m9-old": "Oscars Best Picture: The Long Hallway",
   "m-uk-inflation": "UK inflation below 3% in Q1",
   "m-apple-ar": "Apple announces AR glasses at WWDC",
+};
+
+// Topic per resolved market — needed because historical markets ("m5-old",
+// "m-apple-ar", etc.) aren't in the active stories list, so we can't infer
+// their topic via markets.storyId → stories.topic.
+export const resolvedMarketTopics: Record<string, Topic> = {
+  m3: "tech",
+  "m5-old": "economy",
+  "m9-old": "entertainment",
+  "m-uk-inflation": "economy",
+  "m-apple-ar": "tech",
 };
 
 // ─── Initial user ───────────────────────────────────────────────────
