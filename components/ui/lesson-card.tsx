@@ -29,7 +29,7 @@ export function LessonCard({
   return (
     <div
       onClick={isUnlocked ? onClick : undefined}
-      className={`relative overflow-hidden rounded-2xl border border-border-soft bg-bg-surface ${padding} transition-all duration-150 ${
+      className={`relative flex h-full flex-col overflow-hidden rounded-2xl border border-border-soft bg-bg-surface ${padding} transition-all duration-150 ${
         isUnlocked
           ? "cursor-pointer hover:-translate-y-0.5 hover:shadow-[0_8px_24px_-8px_rgba(28,26,23,0.08)]"
           : "opacity-55 cursor-default"
@@ -52,15 +52,17 @@ export function LessonCard({
         {lesson.subtitle}
       </p>
 
-      {isUnlocked ? (
-        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-ink-tertiary">
-          <span className="text-accent-signal">✓</span> Unlocked
-        </span>
-      ) : (
-        <span className="font-serif text-sm italic text-ink-tertiary">
-          {predictionsNeeded === 1 ? "One more hunch" : `${predictionsNeeded} more hunches`} to unlock.
-        </span>
-      )}
+      <div className="mt-auto pt-2">
+        {isUnlocked ? (
+          <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-ink-tertiary">
+            <span className="text-accent-signal">✓</span> Unlocked
+          </span>
+        ) : (
+          <span className="font-serif text-sm italic text-ink-tertiary">
+            {predictionsNeeded === 1 ? "One more hunch" : `${predictionsNeeded} more hunches`} to unlock.
+          </span>
+        )}
+      </div>
     </div>
   );
 }
