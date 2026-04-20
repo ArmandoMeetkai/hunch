@@ -189,7 +189,7 @@ export function StickyMarketModule({ market }: StickyMarketModuleProps) {
             <EditorialOverline>Amount</EditorialOverline>
             <span className="font-mono text-[13px] text-ink-tertiary">
               {payWith === "dollars"
-                ? `Balance: $${balance.toFixed(2)}`
+                ? `Cash: $${balance.toFixed(2)}`
                 : payWith === "btc"
                   ? `${btcHolding?.quantity.toFixed(6) ?? "0"} BTC (~$${btcValueUSD.toFixed(2)})`
                   : `${ethHolding?.quantity.toFixed(6) ?? "0"} ETH (~$${ethValueUSD.toFixed(2)})`}

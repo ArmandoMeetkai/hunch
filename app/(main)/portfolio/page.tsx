@@ -15,6 +15,20 @@ export default function PortfolioPage() {
   const totalValue = user.practiceBalance + positionsValue;
   const positionCount = user.positions.length;
 
+  // True PnL from prediction activity. Unrealized = active positions'
+  // mark-to-probability value minus what was staked. Realized = payouts on
+  // closed positions minus their stakes. Summing both gives gain/loss that
+  // is independent of how much the user has added via the funds flow.
+  const unrealizedPnl = user.positions.reduce(
+    (sum, p) => sum + (p.currentValue - p.amount),
+    0,
+  );
+  const realizedPnl = user.resolvedPositions.reduce(
+    (sum, r) => sum + (r.payout - r.amount),
+    0,
+  );
+  const pnl = unrealizedPnl + realizedPnl;
+
   return (
     <div className="mx-auto max-w-[960px] px-6 py-10">
       <div className="mb-10">
@@ -35,12 +49,14 @@ export default function PortfolioPage() {
               <p className="font-mono text-[56px] font-light leading-none tracking-[-0.03em] text-ink-primary">
                 ${totalValue.toFixed(2)}
               </p>
+              <p className="mt-2 font-mono text-[12px] text-ink-tertiary">
+                ${user.practiceBalance.toFixed(2)} cash · ${positionsValue.toFixed(2)} in positions
+              </p>
               {(() => {
-                const pnl = totalValue - 10;
                 const isUp = pnl >= 0;
                 return (
-                  <p className={`mt-2 text-[13px] ${isUp ? "text-accent-signal" : "text-accent-cool"}`}>
-                    {isUp ? "↗" : "↘"} {isUp ? "+" : ""}${pnl.toFixed(2)} from practice
+                  <p className={`mt-1 text-[13px] ${isUp ? "text-accent-signal" : "text-accent-cool"}`}>
+                    {isUp ? "↗" : "↘"} {isUp ? "+" : ""}${pnl.toFixed(2)} on your hunches
                   </p>
                 );
               })()}

@@ -152,7 +152,7 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
               </p>
 
               <div className="mb-2 flex items-center justify-between text-[13px]">
-                <span className="text-ink-tertiary">Balance</span>
+                <span className="text-ink-tertiary">Cash</span>
                 <span className="font-mono text-ink-secondary">${balance.toFixed(2)}</span>
               </div>
 
