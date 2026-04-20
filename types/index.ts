@@ -35,13 +35,10 @@ export type Market = {
   resolvesAt: string;
 };
 
-export type PaymentMethod = "dollars" | "btc" | "eth";
-
 export type Position = {
   marketId: string;
   side: Side;
   amount: number;
-  paidWith: PaymentMethod;
   takenAt: string;
   currentValue: number;
 };
@@ -68,22 +65,6 @@ export type AppNotification = {
   timestamp: string;
   read: boolean;
   href?: string;
-};
-
-export type CryptoAsset = {
-  id: string;
-  name: string;
-  symbol: string;
-  price: number;
-  change24h: number;
-  history: PricePoint[];
-};
-
-export type CryptoHolding = {
-  assetId: string;
-  quantity: number;
-  avgBuyPrice: number;
-  boughtAt: string;
 };
 
 export type User = {
