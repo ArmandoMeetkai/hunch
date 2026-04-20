@@ -22,24 +22,46 @@ export default function LearnPage() {
         </h1>
       </div>
 
-      <div className="grid gap-5 md:grid-cols-2">
-        {lessons.map((lesson) => {
-          const isUnlocked = user.unlockedLessons.includes(lesson.id);
-          const predictionsNeeded = Math.max(
+      <div className="flex flex-col gap-5">
+        {(() => {
+          const [featured, ...rest] = lessons;
+          const featuredUnlocked = user.unlockedLessons.includes(featured.id);
+          const featuredNeeded = Math.max(
             0,
-            lesson.unlockAfterPredictions - user.predictionsCompleted,
+            featured.unlockAfterPredictions - user.predictionsCompleted,
           );
-
           return (
-            <LessonCard
-              key={lesson.id}
-              lesson={lesson}
-              isUnlocked={isUnlocked}
-              predictionsNeeded={predictionsNeeded}
-              onClick={() => setActiveLesson(lesson)}
-            />
+            <>
+              <LessonCard
+                key={featured.id}
+                lesson={featured}
+                isUnlocked={featuredUnlocked}
+                predictionsNeeded={featuredNeeded}
+                onClick={() => setActiveLesson(featured)}
+                featured
+              />
+              <div className="grid gap-5 md:grid-cols-2">
+                {rest.map((lesson) => {
+                  const isUnlocked = user.unlockedLessons.includes(lesson.id);
+                  const predictionsNeeded = Math.max(
+                    0,
+                    lesson.unlockAfterPredictions - user.predictionsCompleted,
+                  );
+
+                  return (
+                    <LessonCard
+                      key={lesson.id}
+                      lesson={lesson}
+                      isUnlocked={isUnlocked}
+                      predictionsNeeded={predictionsNeeded}
+                      onClick={() => setActiveLesson(lesson)}
+                    />
+                  );
+                })}
+              </div>
+            </>
           );
-        })}
+        })()}
       </div>
 
       <LessonOverlay
