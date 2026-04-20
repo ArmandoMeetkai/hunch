@@ -6,7 +6,10 @@ import { NotificationsDropdown } from "./notifications-dropdown";
 import { AddFundsModal } from "./ui/add-funds-modal";
 
 export function FeedHeader() {
-  const balance = useAppStore((s) => s.user.practiceBalance);
+  const practiceBalance = useAppStore((s) => s.user.practiceBalance);
+  const positions = useAppStore((s) => s.user.positions);
+  const balance =
+    practiceBalance + positions.reduce((sum, p) => sum + p.currentValue, 0);
   const [showAddFunds, setShowAddFunds] = useState(false);
 
   const now = new Date();
@@ -45,7 +48,7 @@ export function FeedHeader() {
             <button
               onClick={() => setShowAddFunds(true)}
               className="group flex items-baseline gap-1.5 cursor-pointer transition-colors"
-              aria-label={`Balance: $${balance.toFixed(2)}. Click to add funds.`}
+              aria-label={`Total balance: $${balance.toFixed(2)} (cash plus open positions). Click to add funds.`}
             >
               <span className="font-serif text-[13px] italic text-ink-tertiary transition-colors group-hover:text-ink-secondary">
                 Balance
