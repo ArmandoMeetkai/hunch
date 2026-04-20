@@ -112,12 +112,12 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
                 const customVal = parseFloat(custom);
                 const isOverLimit = custom !== "" && customVal > 500;
                 return (
-                  <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-2.5 ${
+                  <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-2.5 transition-colors focus-within:border-ink-tertiary ${
                     isOverLimit
                       ? "border-accent-signal bg-accent-signal/5"
                       : custom !== ""
-                        ? "border-accent-ink bg-accent-highlight/30"
-                        : "border-border-soft bg-bg-sunken"
+                        ? "border-border-firm bg-accent-highlight/30"
+                        : "border-border-soft bg-bg-sunken focus-within:bg-accent-highlight/20"
                   }`}>
                     <span className="font-mono text-sm text-ink-tertiary">$</span>
                     <input

@@ -162,8 +162,8 @@ export function SellCryptoModal({ isOpen, onClose, asset, holding }: SellCryptoM
 
                   {/* Custom USD mode */}
                   {mode === "custom" && (
-                    <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-3 ${
-                      customUSD !== "" ? "border-accent-ink bg-accent-highlight/30" : "border-border-soft bg-bg-sunken"
+                    <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-3 transition-colors focus-within:border-ink-tertiary ${
+                      customUSD !== "" ? "border-border-firm bg-accent-highlight/30" : "border-border-soft bg-bg-sunken focus-within:bg-accent-highlight/20"
                     }`}>
                       <span className="font-mono text-sm text-ink-tertiary">$</span>
                       <input

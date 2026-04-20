@@ -85,6 +85,17 @@ input[type="number"] {
   outline: 2px solid var(--color-accent-ink);
   outline-offset: 2px;
 }
+/* Form controls handle focus at the wrapper level (focus-within + bg/border
+   shifts) — the hard 2px ink outline on the input itself reads as a harsh
+   black rectangle against warm fills. */
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible,
+select:focus,
+select:focus-visible {
+  outline: none;
+}
 
 /* Custom scrollbar utilities */
 .scrollbar-none::-webkit-scrollbar { display: none; }
