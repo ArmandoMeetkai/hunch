@@ -9,9 +9,9 @@
 **Nombre tentativo:** Hunch
 **Tagline:** *Read the world. Back your hunches.*
 
-**Concepto:** Una app tipo feed editorial (inspiración: Artifact, NYT Morning Briefing, Arc) donde cada historia del día tiene un mercado de predicción asociado. El usuario lee, forma una opinión, y con un tap toma una micro-posición. La app lleva un "track record de intuición" a lo largo del tiempo. La capa cripto (stablecoins, wallets, blockchain) se introduce progresivamente mediante micro-lecciones contextuales — nunca como feature principal.
+**Concepto:** Una app tipo feed editorial (inspiración: Artifact, NYT Morning Briefing, Arc) donde cada historia del día tiene un mercado de predicción asociado. El usuario lee, forma una opinión, y con un tap toma una micro-posición. La app lleva un "track record de intuición" a lo largo del tiempo. **Tesis híbrida actualizada (2026-04-20):** además del onramp educativo, existe un `/treasury` sobrio donde el usuario puede mantener y gastar BTC/ETH. Cripto es first-class feature, pero tratada en registro editorial — nunca hype. `/learn` sigue siendo la puerta para quien quiera profundizar en wallet, self-custody, blockchain.
 
-**Audiencia objetivo:** adultos 25–45 sin experiencia cripto, curiosos, lectores de medios, personas que *ya* opinan sobre el mundo pero no apuestan. Anti-target: day-traders, cripto-natives.
+**Audiencia objetivo:** adultos 25–45 lectores de medios (FT, NYT, Economist), que opinan sobre el mundo y — opcionalmente — ya mueven algo de BTC/ETH. Anti-target: day-traders, cripto-bros, degens.
 
 **Alcance del demo:** frontend puro, datos mock, sin backend, sin wallet real, sin base de datos. Todo el estado vive en memoria (React state / Zustand). El objetivo es validar look & feel, flujo de usuario, y sensación general del producto.
 
@@ -41,6 +41,7 @@
 /              → Feed editorial (home)
 /story/[id]    → Vista de historia individual con mercado embebido
 /portfolio     → "Belief portfolio" del usuario
+/treasury      → Vault editorial de BTC/ETH con buy/sell en dinero de práctica
 /track-record  → Histórico de predicciones con stats de intuición
 /learn         → Biblioteca de micro-lecciones desbloqueadas
 /onboarding    → Flujo de bienvenida de 4 pasos (solo primera visita)
@@ -317,9 +318,11 @@ Simular fluctuación: `setInterval` cada 8s que mueve `probabilityYes` ±1.5% de
 ## 9. Qué NO incluir en el demo
 
 - Sign-up / login real.
-- Integración con wallets (WalletConnect, MetaMask, etc).
-- Ninguna dirección 0x visible en ninguna parte.
-- Ni la palabra "crypto", "blockchain", "token" o "wallet" en onboarding ni en el feed principal. Sólo aparecen en `/learn` y en `/settings › Advanced`.
+- Integración con wallets reales (WalletConnect, MetaMask, etc). El `/treasury` es mock.
+- Ninguna dirección `0x` visible en ninguna parte.
+- Jerga cripto-bro: "moon", "bags", "hodl", "gm", "diamond hands", laser eyes, emojis 🚀💎.
+- La palabra "crypto" como sustantivo producto ("Buy crypto", "Crypto balance"). Usar "Treasury", "reserves", o el nombre propio del activo.
+- "Wallet" en onboarding o feed. Sigue permitida solo en `/learn` y `/settings › Advanced`.
 - Gráficos de candlesticks.
 - Confetti, emojis animados, gamificación ruidosa.
 - Notificaciones push / dark patterns.
@@ -338,16 +341,17 @@ Simular fluctuación: `setInterval` cada 8s que mueve `probabilityYes` ±1.5% de
 
 ## 11. Criterios de éxito del demo
 
-El demo se considera exitoso si, al mostrárselo a una persona no-cripto, esa persona dice alguna variante de:
+El demo se considera exitoso si, al mostrárselo a la audiencia objetivo (lector FT/NYT, opcionalmente tenedor de algo de BTC/ETH), esa persona dice alguna variante de:
 
-- *"Esto se ve como una app de medios, no como algo financiero."*
+- *"Se ve como una app de medios que también tiene un vault — no como un exchange."*
+- *"Me trata como adulto: no me esconde la cripto pero tampoco me la grita."*
 - *"Quiero probarlo."*
-- *"No entendí que tenía que ver con cripto."*
 
 Y específicamente **no** dice:
 
 - *"Se ve como Binance / Coinbase."*
 - *"Muy técnico."*
+- *"Se siente cripto-bro."*
 - *"No sé qué es esto."*
 
 ---

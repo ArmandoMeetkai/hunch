@@ -15,7 +15,7 @@ Cuando expliques algo, hacelo con la claridad de un senior que mentorea — no c
 
 ---
 
-Demo frontend de una app editorial de mercados de predicción con onramp progresivo a cripto. Estética de revista, no de trading. Ver `docs/prompt-hunch-demo.md` para el brief completo.
+Demo frontend de una app editorial de mercados de predicción **más treasury de activos digitales**. Tesis híbrida: voz de revista dominical cubriendo el mundo (incluyendo cripto como news), *y* un vault sobrio donde el usuario puede mantener y gastar BTC/ETH sin que la app se convierta en Coinbase. Estética de revista, no de trading. Ver `docs/prompt-hunch-demo.md` para el brief completo.
 
 ## Stack
 
@@ -41,12 +41,12 @@ Demo frontend de una app editorial de mercados de predicción con onramp progres
 ## Estructura
 
 ```
-/app              → rutas (feed, story/[id], portfolio, track-record, learn, onboarding, settings)
-/components/ui    → primitivas reutilizables (StoryCard, MarketStrip, ProbabilityNumber, ...)
+/app              → rutas (feed, story/[id], portfolio, treasury, track-record, learn, onboarding, settings)
+/components/ui    → primitivas reutilizables (StoryCard, MarketStrip, ProbabilityNumber, CryptoCard, ...)
 /components       → composiciones específicas de página
-/lib              → utilidades, mock-data, stores de Zustand
-/hooks            → custom hooks (useLivePrice, useOnboardingStep, ...)
-/types            → tipos compartidos (Story, Market, Position, User)
+/lib              → utilidades, mock-data, mock-crypto, stores de Zustand
+/hooks            → custom hooks (useLivePrice, useLiveCryptoPrice, useOnboardingStep, ...)
+/types            → tipos compartidos (Story, Market, Position, CryptoAsset, CryptoHolding, User)
 /styles           → globals.css con @theme tokens
 ```
 
@@ -67,17 +67,35 @@ Demo frontend de una app editorial de mercados de predicción con onramp progres
 - `--border-firm: #C9BEAD`
 
 **Tipografía:**
-- Headlines → Instrument Serif (italic liberal)
+- Headlines → Newsreader (italic liberal)
 - Body → Inter 400/500, tracking -0.005em
-- Números → JetBrains Mono Light, tracking -0.02em
+- Números → IBM Plex Mono Light, tracking -0.02em
 
 **Radius:** 12px tarjetas, 8px botones, 999px pills, 24px modales.
 
 ## Lenguaje del producto (importa)
 
-- NUNCA escribir "crypto", "blockchain", "wallet", "token", "0x..." en onboarding ni en el feed. Esas palabras solo existen en `/learn` y en `/settings › Advanced`.
-- Si necesitás referirte al balance, decí "balance" o "dollars", no "USDC" ni "stablecoin".
-- Voz editorial: sobria, curiosa, segunda persona. Pensá revista dominical, no startup.
+Regla general: voz editorial — sobria, curiosa, segunda persona. Pensá revista dominical, no startup. Cripto existe en el producto, pero nunca como registro hype.
+
+**Siempre prohibido (registro hype / cripto-bro):**
+- Jerga: "moon", "bags", "hodl", "gm", "fren", "diamond hands", "to the moon".
+- Emojis cripto: 🚀💎⚡🌙, laser eyes, pepe.
+- Gradientes neón, verde neón, rojo saturado, azules tech.
+- Direcciones `0x...` visibles en cualquier pantalla del usuario.
+- "Gas fees", "tx hash", "mempool", "slippage" en UI (sí en `/learn` como concepto).
+
+**Prohibido en onboarding y en la home del feed:**
+- Las palabras "crypto" como sustantivo producto ("Buy crypto", "Crypto balance"). Reemplazar con "Treasury", "reserves", "Bitcoin/Ether" por nombre.
+- "Wallet" — todavía banned en feed/onboarding. Permitido en `/settings › Advanced` y `/learn`.
+
+**Permitido (registro editorial):**
+- Nombres de activos: "Bitcoin", "Ether", "BTC", "ETH", glifos tipográficos "₿" y "Ξ" (son editorial, no logos).
+- Conceptos técnicos en stories del feed cuando sean legítima news ("stablecoin", "blockchain", "EIP-xxxx") — el FT los cubre, nosotros también.
+- "Treasury", "reserves", "holdings" como framing user-facing del stash de cripto.
+- Metadata de posiciones ("via ₿ BTC") en `/portfolio` y `/track-record`.
+- `/learn` sigue siendo el lugar donde se explican wallet, self-custody, blockchain de punta a punta.
+
+Si el balance está en dólares, decí "balance" o "dollars". Si el activo es cripto, llamalo por su nombre propio (Bitcoin, Ether) — evitá "USDC", "stablecoin", "crypto asset" como referencias genéricas en UI.
 
 ## Antes de implementar
 
