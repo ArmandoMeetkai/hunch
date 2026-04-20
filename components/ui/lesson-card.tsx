@@ -41,15 +41,15 @@ export function LessonCard({
         {lesson.subtitle}
       </p>
 
-      <span
-        className={`text-[11px] font-medium uppercase tracking-[0.12em] ${
-          isUnlocked ? "text-accent-signal" : "text-ink-tertiary"
-        }`}
-      >
-        {isUnlocked
-          ? "✓ Unlocked"
-          : `Locked · ${predictionsNeeded} more prediction${predictionsNeeded === 1 ? "" : "s"}`}
-      </span>
+      {isUnlocked ? (
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-ink-tertiary">
+          <span className="text-accent-signal">✓</span> Unlocked
+        </span>
+      ) : (
+        <span className="font-serif text-sm italic text-ink-tertiary">
+          {predictionsNeeded === 1 ? "One more hunch" : `${predictionsNeeded} more hunches`} to unlock.
+        </span>
+      )}
     </div>
   );
 }
