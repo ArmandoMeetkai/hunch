@@ -161,26 +161,37 @@ export function SellCryptoModal({ isOpen, onClose, asset, holding }: SellCryptoM
                   )}
 
                   {/* Custom USD mode */}
-                  {mode === "custom" && (
-                    <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-3 transition-colors focus-within:border-ink-tertiary ${
-                      customUSD !== "" ? "border-border-firm bg-accent-highlight/30" : "border-border-soft bg-bg-sunken focus-within:bg-accent-highlight/20"
-                    }`}>
-                      <span className="font-mono text-sm text-ink-tertiary">$</span>
-                      <input
-                        type="text"
-                        inputMode="decimal"
-                        placeholder={`Up to ${holdingValue.toFixed(2)}`}
-                        maxLength={8}
-                        value={customUSD}
-                        onChange={(e) => {
-                          const raw = e.target.value.replace(/[^0-9.]/g, "").slice(0, 8);
-                          setCustomUSD(raw);
-                        }}
-                        autoFocus
-                        className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
-                      />
-                    </div>
-                  )}
+                  {mode === "custom" && (() => {
+                    const customVal = parseFloat(customUSD);
+                    const isOverLimit = customUSD !== "" && customVal > holdingValue;
+                    return (
+                      <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-3 transition-colors focus-within:border-ink-tertiary ${
+                        isOverLimit
+                          ? "border-accent-signal bg-accent-signal/5"
+                          : customUSD !== ""
+                            ? "border-border-firm bg-accent-highlight/30"
+                            : "border-border-soft bg-bg-sunken focus-within:bg-accent-highlight/20"
+                      }`}>
+                        <span className="font-mono text-sm text-ink-tertiary">$</span>
+                        <input
+                          type="text"
+                          inputMode="decimal"
+                          placeholder={`Up to ${holdingValue.toFixed(2)}`}
+                          maxLength={8}
+                          value={customUSD}
+                          onChange={(e) => {
+                            const raw = e.target.value.replace(/[^0-9.]/g, "").slice(0, 8);
+                            setCustomUSD(raw);
+                          }}
+                          autoFocus
+                          className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
+                        />
+                        {isOverLimit && (
+                          <span className="shrink-0 text-[11px] text-accent-signal">Max ${holdingValue.toFixed(2)}</span>
+                        )}
+                      </div>
+                    );
+                  })()}
 
                   {/* Sale preview */}
                   {sellValueUSD > 0 && (

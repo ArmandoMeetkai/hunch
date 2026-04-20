@@ -93,24 +93,30 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
               </div>
 
               <div className="mb-3 grid grid-cols-4 gap-2">
-                {AMOUNTS.map((a) => (
-                  <button
-                    key={a}
-                    onClick={() => { setAmount(a); setCustom(""); }}
-                    className={`cursor-pointer rounded-[var(--radius-button)] border py-3 text-center font-mono text-sm transition-all duration-150 ${
-                      amount === a && custom === ""
-                        ? "border-accent-ink bg-accent-highlight text-accent-ink"
-                        : "border-border-soft text-ink-secondary hover:border-border-firm"
-                    }`}
-                  >
-                    ${a}
-                  </button>
-                ))}
+                {AMOUNTS.map((a) => {
+                  const disabled = a > balance;
+                  return (
+                    <button
+                      key={a}
+                      onClick={() => { if (!disabled) { setAmount(a); setCustom(""); } }}
+                      disabled={disabled}
+                      className={`rounded-[var(--radius-button)] border py-3 text-center font-mono text-sm transition-all duration-150 ${
+                        disabled
+                          ? "border-border-soft text-ink-tertiary opacity-40 cursor-not-allowed"
+                          : amount === a && custom === ""
+                            ? "border-accent-ink bg-accent-highlight text-accent-ink cursor-pointer"
+                            : "border-border-soft text-ink-secondary hover:border-border-firm cursor-pointer"
+                      }`}
+                    >
+                      ${a}
+                    </button>
+                  );
+                })}
               </div>
 
               {(() => {
                 const customVal = parseFloat(custom);
-                const isOverLimit = custom !== "" && customVal > 500;
+                const isOverLimit = custom !== "" && customVal > balance;
                 return (
                   <div className={`mb-5 flex items-center gap-2 rounded-[var(--radius-button)] border px-4 py-2.5 transition-colors focus-within:border-ink-tertiary ${
                     isOverLimit
@@ -124,18 +130,18 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
                       type="text"
                       inputMode="decimal"
                       placeholder="Other amount"
-                      maxLength={6}
+                      maxLength={8}
                       value={custom}
                       onChange={(e) => {
-                        const raw = e.target.value.replace(/[^0-9.]/g, "").slice(0, 6);
+                        const raw = e.target.value.replace(/[^0-9.]/g, "").slice(0, 8);
                         setCustom(raw);
                         const val = parseFloat(raw);
-                        if (val > 0 && val <= 500) setAmount(val);
+                        if (val > 0 && val <= balance) setAmount(val);
                       }}
                       className="w-full bg-transparent font-mono text-sm text-ink-primary placeholder:text-ink-tertiary outline-none"
                     />
                     {isOverLimit && (
-                      <span className="shrink-0 text-[11px] text-accent-signal">Max $500</span>
+                      <span className="shrink-0 text-[11px] text-accent-signal">Max ${balance.toFixed(2)}</span>
                     )}
                   </div>
                 );
@@ -152,7 +158,7 @@ export function BuyCryptoModal({ isOpen, onClose, asset }: BuyCryptoModalProps) 
 
               <button
                 onClick={handleBuy}
-                disabled={!canAfford || amount <= 0 || (custom !== "" && (parseFloat(custom) > 500 || parseFloat(custom) <= 0 || isNaN(parseFloat(custom))))}
+                disabled={!canAfford || amount <= 0 || (custom !== "" && (parseFloat(custom) > balance || parseFloat(custom) <= 0 || isNaN(parseFloat(custom))))}
                 className="mb-4 w-full cursor-pointer truncate rounded-[var(--radius-card)] bg-accent-ink py-3.5 text-[15px] font-medium text-bg-canvas transition-transform hover:-translate-y-px disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Buy ${amount} of {asset.name}
