@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect, useSyncExternalStore } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAppStore } from "@/lib/stores/app-store";
@@ -13,12 +13,35 @@ import type { Topic } from "@/types";
 
 const EASE_OUT_QUART = [0.22, 1, 0.36, 1] as const;
 
+const subscribeHydration = (onChange: () => void) =>
+  useAppStore.persist.onFinishHydration(onChange);
+const getHydratedSnapshot = () => useAppStore.persist.hasHydrated();
+const getServerHydratedSnapshot = () => false;
+
 export default function OnboardingPage() {
   const [step, setStep] = useState(1);
+  // SSR-safe hydration signal: server snapshot is always false, client reads
+  // the live persist flag and updates when hydration finishes. Without this
+  // we'd bounce out on the first render using the default initialUser state
+  // (onboardingComplete: true) before localStorage is read.
+  const hydrated = useSyncExternalStore(
+    subscribeHydration,
+    getHydratedSnapshot,
+    getServerHydratedSnapshot,
+  );
   const router = useRouter();
+  const onboardingComplete = useAppStore((s) => s.user.onboardingComplete);
   const completeOnboarding = useAppStore((s) => s.completeOnboarding);
   const selectTopics = useAppStore((s) => s.selectTopics);
   const reducedMotion = useReducedMotion();
+
+  // Mirror of OnboardingGuard, inverted: once hydrated, if the user already
+  // finished onboarding, the "$10" copy no longer matches their actual balance.
+  useEffect(() => {
+    if (hydrated && onboardingComplete) {
+      router.replace("/");
+    }
+  }, [hydrated, onboardingComplete, router]);
 
   const advance = useCallback(() => setStep((s) => s + 1), []);
 
@@ -43,6 +66,10 @@ export default function OnboardingPage() {
         exit: { opacity: 0, y: -12 },
         transition: { duration: 0.32, ease: EASE_OUT_QUART },
       };
+
+  if (!hydrated || onboardingComplete) {
+    return null;
+  }
 
   return (
     <div className="relative min-h-screen overflow-x-hidden pt-20 md:pt-24">
